@@ -4,11 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Auctions Online</title>
+
+    <!-- Bootstrap 4.0.0 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
-	
+
+    <!-- Footer related -->
+    <link rel="stylesheet" href="css/footer-distributed-with-address-and-phones.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
     <style>
         .navbar {
             margin-left: 30px;
@@ -33,27 +39,29 @@
             margin-left: 30px;
             margin-top: 30px;
         }
-        
         /* show 3 items */
+        
         .carousel-inner .active,
         .carousel-inner .active + .carousel-item,
-        .carousel-inner .active + .carousel-item + .carousel-item {
-			display: block;
+        .carousel-inner .active + .carousel-item + .carousel-item,
+        .carousel-inner .active + .carousel-item + .carousel-item + .carousel-item,
+        .carousel-inner .active + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
+            display: block;
         }
-		
-		#myCarousel
-		{
-			width: 70%;
-			
-		}
-		
-		.carousel-item
-		{
-			height: 70%;
-		}
         
+        #myCarousel {
+            margin-right: 100px;
+            margin-left: 100px;
+        }
+        
+        .card-img-top {
+			width: 100%;
+			height: 15vw;
+			object-fit: cover;
+		}
     </style>
 </head>
+
 <body>
     <!-- <div class="container">
 		<div class="row">
@@ -68,8 +76,8 @@
 			</div>
 		</div>
 	</div> -->
-	
-	<!-- Navbar -->
+
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#"><img src="images/home.png" class="logo" /></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -102,100 +110,165 @@
             </li>
         </ul>
     </nav>
-<div id="replacement">
-	<!-- Products -->
-    <div class="container-fluid">
-        <div id="myCarousel" class="carousel slide" data-interval="false">
-            <div class="carousel-inner row w-100 mx-auto">
-                <div class="carousel-item col-md-4 active">
-                    <div class="card">
-                        <img class="card-img-top img-fluid" src="http://placehold.it/800x600/f44242/fff" alt="Card image cap">
-                        <div class="card-body">
-                            <h4 class="card-title">Card 1</h4>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    <div id="replacement">
+        <!-- Products -->
+        <div class="container-fluid">
+            <div id="myCarousel" class="carousel slide" data-interval="false">
+                <div class="carousel-inner row w-100 mx-auto">
+                    <div class="carousel-item col-md-3 active">
+                        <div class="card">
+                            <img class="card-img-top img-fluid" src="images/products/console-01.png" alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title">PS4 Pro 1TB</h4>
+                                <p class="card-text">This is a longer card with supporting text below as a natural.</p>
+                                <p class="card-text"><small class="text-muted">Auction Starting : in 45min</small></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item col-md-3">
+                        <div class="card">
+                            <img class="card-img-top img-fluid" src="images/products/game-01.png" alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title">Bloodborne (PS4)</h4>
+                                <p class="card-text">This is a longer card with supporting text below as a natural.</p>
+                                <p class="card-text"><small class="text-muted">Auction Starting : in 45min 10sec</small></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item col-md-3">
+                        <div class="card">
+                            <img class="card-img-top img-fluid" src="images/products/game-02.png" alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title">Uncharted 4 (PS4)</h4>
+                                <p class="card-text">This is a longer card with supporting text below as a natural.</p>
+                                <p class="card-text"><small class="text-muted">Auction Starting : in 1h 45min 3sec</small></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item col-md-3">
+                        <div class="card">
+                            <img class="card-img-top img-fluid" src="images/products/gadget-01.png" alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title">Xiaomi Smartwatch X45</h4>
+                                <p class="card-text">This is a longer card with supporting text below as a natural.</p>
+                                <p class="card-text"><small class="text-muted">Auction Starting : in 10h 45min 10sec</small></p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="carousel-item col-md-4">
-                    <div class="card">
-                        <img class="card-img-top img-fluid" src="http://placehold.it/800x600/418cf4/fff" alt="Card image cap">
-                        <div class="card-body">
-                            <h4 class="card-title">Card 2</h4>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                <div class="carousel-inner row w-100 mx-auto">
+                    <div class="carousel-item col-md-3 active">
+                        <div class="card">
+                            <img class="card-img-top img-fluid" src="images/products/game-04.png" alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title">Sea of Thieves (XBOX ONE)</h4>
+                                <p class="card-text">This is a longer card with supporting text below as a natural.</p>
+                                <p class="card-text"><small class="text-muted">Auction Starting : in 1d 1h 45min 3sec</small></p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="carousel-item col-md-4">
-                    <div class="card">
-                        <img class="card-img-top img-fluid" src="http://placehold.it/800x600/3ed846/fff" alt="Card image cap">
-                        <div class="card-body">
-                            <h4 class="card-title">Card 3</h4>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    <div class="carousel-item col-md-3">
+                        <div class="card">
+                            <img class="card-img-top img-fluid" src="images/products/laptop-01.png" alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title">HP Pavilion DV7</h4>
+                                <p class="card-text">This is a longer card with supporting text below as a natural.</p>
+                                <p class="card-text"><small class="text-muted">Auction Starting : in 1d 10h 5min 1sec</small></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item col-md-3">
+                        <div class="card">
+                            <img class="card-img-top img-fluid" src="images/products/tv-01.png" alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title">Samsung SmartTV L14W2</h4>
+                                <p class="card-text">This is a longer card with supporting text below as a natural.</p>
+                                <p class="card-text"><small class="text-muted">Auction Starting : in 2d 11h 4min 3sec</small></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item col-md-3">
+                        <div class="card">
+                            <img class="card-img-top img-fluid" src="images/products/tv-02.png" alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title">LG Magnum 154</h4>
+                                <p class="card-text">This is a longer card with supporting text below as a natural.</p>
+                                <p class="card-text"><small class="text-muted">Auction Starting : in 2d 1h 55min 31sec</small></p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="carousel-inner row w-100 mx-auto">
-                <div class="carousel-item col-md-4 active">
-                    <div class="card">
-                        <img class="card-img-top img-fluid" src="http://placehold.it/800x600/f44242/fff" alt="Card image cap">
-                        <div class="card-body">
-                            <h4 class="card-title">Card 1</h4>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item col-md-4">
-                    <div class="card">
-                        <img class="card-img-top img-fluid" src="http://placehold.it/800x600/418cf4/fff" alt="Card image cap">
-                        <div class="card-body">
-                            <h4 class="card-title">Card 2</h4>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item col-md-4">
-                    <div class="card">
-                        <img class="card-img-top img-fluid" src="http://placehold.it/800x600/3ed846/fff" alt="Card image cap">
-                        <div class="card-body">
-                            <h4 class="card-title">Card 3</h4>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        </div>
-                    </div>
-                </div>
-			</div>
         </div>
+
+        <!-- Navigation Page -->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" href="#!" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#!">1</a></li>
+                <li class="page-item"><a class="page-link" href="#!">2</a></li>
+                <li class="page-item"><a class="page-link" href="#!">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#!" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
 
-	<!-- Navigation Page -->
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            <li class="page-item">
-                <a class="page-link" href="#!" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                    <span class="sr-only">Previous</span>
-                </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#!">1</a></li>
-            <li class="page-item"><a class="page-link" href="#!">2</a></li>
-            <li class="page-item"><a class="page-link" href="#!">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#!" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</div>
+    <footer class="footer-distributed">
+        <div class="footer-left">
+            <h3>Company<span>logo</span></h3>
+            <p class="footer-links">
+                <a href="#">Home</a> ·
+                <a href="#">Blog</a> ·
+                <a href="#">Pricing</a> ·
+                <a href="#">About</a> ·
+                <a href="#">Faq</a> ·
+                <a href="#">Contact</a>
+            </p>
+            <p class="footer-company-name">Auctions Online &copy; 2018</p>
+        </div>
+        <div class="footer-center">
+            <div>
+                <i class="fa fa-map-marker"></i>
+                <p><span>Papasiopoulou 2-4</span> Lamia, Greece</p>
+            </div>
+
+            <div>
+                <i class="fa fa-phone"></i>
+                <p>+0030 2231 066900</p>
+            </div>
+
+            <div>
+                <i class="fa fa-envelope"></i>
+                <p><a href="mailto:admin@auctionson.com">admin@auctionson.com</a></p>
+            </div>
+        </div>
+
+        <div class="footer-right">
+            <p class="footer-company-about">
+                <span>About the store</span>
+				
+            </p>
+            <div class="footer-icons">
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-google"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+	
 </body>
-	<script>
-		$( "#replacement" ).load("register.html");
-	</script>
+<script>
+    //$( "#replacement" ).load("register.html");
+</script>
+
 </html>

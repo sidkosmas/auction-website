@@ -12,7 +12,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 
     <!-- Footer related -->
-    <link rel="stylesheet" href="css/footer-distributed-with-address-and-phones.css">
+    <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 
     <style>
@@ -39,8 +39,13 @@
             margin-left: 30px;
             margin-top: 30px;
         }
-        /* show 3 items */
-        
+		
+		#myCarousel {
+            margin-right: 100px;
+            margin-left: 100px;
+        }
+		
+        /* show 4 items per row */ 
         .carousel-inner .active,
         .carousel-inner .active + .carousel-item,
         .carousel-inner .active + .carousel-item + .carousel-item,
@@ -49,17 +54,16 @@
             display: block;
         }
         
-        #myCarousel {
-            margin-right: 100px;
-            margin-left: 100px;
-        }
-        
         .card-img-top {
 			width: 100%;
 			height: 15vw;
 			object-fit: cover;
 		}
     </style>
+	
+	<script>
+		
+	</script>
 </head>
 
 <body>
@@ -79,7 +83,7 @@
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#"><img src="images/home.png" class="logo" /></a>
+        <a id="homebutton" class="navbar-brand" href="#"><img src="images/home.png" class="logo" /></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -106,7 +110,7 @@
                 <a class="nav-link" href="#!">Login</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#!">Sign up</a>
+                <a id="signup" class="nav-link" href="#!">Sign up</a>
             </li>
         </ul>
     </nav>
@@ -225,7 +229,7 @@
 
     <footer class="footer-distributed">
         <div class="footer-left">
-            <h3>Company<span>logo</span></h3>
+            <h3>Auctions<span>online</span></h3>
             <p class="footer-links">
                 <a href="#">Home</a> ·
                 <a href="#">Blog</a> ·
@@ -268,7 +272,16 @@
 	
 </body>
 <script>
-    //$( "#replacement" ).load("register.html");
+	$(document).ready(function(){
+		$("#signup").click(function(){
+			$("#replacement").load("register.html");
+		});
+		
+		$("#homebutton").click(function(){
+			$("#replacement").load("index.html");
+		});
+		
+	});
 </script>
 
 </html>

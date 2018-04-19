@@ -41,8 +41,8 @@
         }
 		
 		#myCarousel {
-            margin-right: 100px;
-            margin-left: 100px;
+            margin-right: 40px;
+            margin-left: 40px;
         }
 		
         /* show 4 items per row */ 
@@ -59,6 +59,14 @@
 			height: 15vw;
 			object-fit: cover;
 		}
+		
+		#aright
+		{
+			margin-left : 22px;
+			margin-top: 20px;
+			position: sticky;
+		}
+		
     </style>
 	
 	<script>
@@ -114,8 +122,15 @@
             </li>
         </ul>
     </nav>
-    <div id="replacement">
-        <!-- Products -->
+	
+<div class="d-flex justify-content-center">
+
+<div class="p-2">
+	<img id="aright" src="images/aright.png" class="logosite2" />
+</div>
+<div class="p-2">	
+     <div id="replacement">
+        
         <div class="container-fluid">
             <div id="myCarousel" class="carousel slide" data-interval="false">
                 <div class="carousel-inner row w-100 mx-auto">
@@ -205,27 +220,29 @@
             </div>
         </div>
 
-        <!-- Navigation Page -->
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-                <li class="page-item">
-                    <a class="page-link" href="#!" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#!">1</a></li>
-                <li class="page-item"><a class="page-link" href="#!">2</a></li>
-                <li class="page-item"><a class="page-link" href="#!">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#!" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a class="page-link" href="#!" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#!">1</a></li>
+            <li class="page-item"><a class="page-link" href="#!">2</a></li>
+            <li class="page-item"><a class="page-link" href="#!">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#!" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+	</div>
+
+</div>
+</div>
 
     <footer class="footer-distributed">
         <div class="footer-left">

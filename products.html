@@ -27,6 +27,28 @@
         margin-top: 20px;
     }
 	
+	.card_row_button
+	{
+		margin-left : -20px;
+	}
+	
+	.card_row_value
+	{
+		margin-right : -20px;
+	}
+	
+	#bid_now_button
+	{
+		width: 100%; 
+		margin-top: 10px;
+	}
+	
+	#watch_button
+	{
+		width: 100%; 
+		margin-top: 5px;
+	}
+	
 </style>
 
 <div class="container-fluid">
@@ -35,20 +57,38 @@
             <div class="carousel-item col-md-3 active">
                 <div class="card">
                     <img class="card-img-top img-fluid" src="images/products/tv-01.png" alt="Card image cap">
-                    <div class="card-body">
-                        <h4 class="card-title">PS4 Pro 1TB</h4>
-                        <p class="card-text">This is a longer card with supporting text below as a natural.</p>
-                        <p class="card-text"><small class="text-muted">Auction Starting : in 45min</small></p>
-                    </div>
+					<div class="card-body">
+						
+						<div id="item_name"><h4 class="card-title text-center">PS4 Pro 1TB</h4><hr></div>		<!-- ITEM NAME -->
+						<div id="current_value" class="text-center"><h3>100.30 €</h3></div>						<!-- ITEM CURRENT VALUE -->
+						<div id="current_bids_time">54 bids <small class="text-muted">|</small> <font color="red">45m 30s</font></div>	<!-- CURRENT BIDS AND TIME REMAINING -->
+						<div>
+							<!-- BID NOW BUTTON -->
+							<button id="bid_now_button" type="button" class="btn btn-primary">Bid Now</button>
+						</div>
+						<div>
+							<!-- WATCH BUTTON -->
+							<button id="watch_button" type="button" class="btn btn-outline-primary">Watch</button>
+						</div>
+                     
+					</div>
                 </div>
             </div>
             <div class="carousel-item col-md-3">
                 <div class="card">
                     <img class="card-img-top img-fluid" src="images/products/tv-02.png" alt="Card image cap">
                     <div class="card-body">
-                        <h4 class="card-title">Bloodborne (PS4)</h4>
-                        <p class="card-text">This is a longer card with supporting text below as a natural.</p>
-                        <p class="card-text"><small class="text-muted">Auction Starting : in 45min 10sec</small></p>
+						<div id="item_name"><h4 class="card-title text-center">Bloodborne (PS4)</h4><hr></div>		<!-- ITEM NAME -->
+						<div id="current_value" class="text-center"><h3>22.20 €</h3></div>						<!-- ITEM CURRENT VALUE -->
+						<div id="current_bids_time">54 bids <small class="text-muted">|</small> <!-- <font color="red"> -->5h 45m 30s<!-- </font> --></div>	<!-- CURRENT BIDS AND TIME REMAINING -->
+						<div>
+							<!-- BID NOW BUTTON -->
+							<button id="bid_now_button" type="button" class="btn btn-primary">Bid Now</button>
+						</div>
+						<div>
+							<!-- WATCH BUTTON -->
+							<button id="watch_button" type="button" class="btn btn-outline-primary">Watch</button>
+						</div>
                     </div>
                 </div>
             </div>
@@ -57,8 +97,8 @@
                     <img class="card-img-top img-fluid" src="images/products/tv-04.png" alt="Card image cap">
                     <div class="card-body">
                         <h4 class="card-title">Uncharted 4 (PS4)</h4>
-                        <p class="card-text">This is a longer card with supporting text below as a natural.</p>
-                        <p class="card-text"><small class="text-muted">Auction Starting : in 1h 45min 3sec</small></p>
+                        <!-- <p class="card-text">This is a longer card with supporting text below as a natural.</p> -->
+                        <p class="card-text"><small class="text-muted">Auction starts in : 1h 45min 3sec</small></p>
                     </div>
                 </div>
             </div>
@@ -67,8 +107,8 @@
                     <img class="card-img-top img-fluid" src="images/products/tv-05.png" alt="Card image cap">
                     <div class="card-body">
                         <h4 class="card-title">Xiaomi Smartwatch X45</h4>
-                        <p class="card-text">This is a longer card with supporting text below as a natural.</p>
-                        <p class="card-text"><small class="text-muted">Auction Starting : in 10h 45min 10sec</small></p>
+                        <!-- <p class="card-text">This is a longer card with supporting text below as a natural.</p> -->
+                        <p class="card-text"><small class="text-muted">Auction starts in : 10h 45min 10sec</small></p>
                     </div>
                 </div>
             </div>
@@ -80,7 +120,7 @@
                     <div class="card-body">
                         <h4 class="card-title">Sea of Thieves (XBOX ONE)</h4>
                         <p class="card-text">This is a longer card with supporting text below as a natural.</p>
-                        <p class="card-text"><small class="text-muted">Auction Starting : in 1d 1h 45min 3sec</small></p>
+                        <p class="card-text"><small class="text-muted">Auction starts in : 1d 1h 45min 3sec</small></p>
                     </div>
                 </div>
             </div>
@@ -89,8 +129,8 @@
                     <img class="card-img-top img-fluid" src="images/products/laptop-01.png" alt="Card image cap">
                     <div class="card-body">
                         <h4 class="card-title">HP Pavilion DV7</h4>
-                        <p class="card-text">This is a longer card with supporting text below as a natural.</p>
-                        <p class="card-text"><small class="text-muted">Auction Starting : in 1d 10h 5min 1sec</small></p>
+                        <!-- <p class="card-text">This is a longer card with supporting text below as a natural.</p> -->
+                        <p class="card-text"><small class="text-muted">Auction starts in : 1d 10h 5min 1sec</small></p>
                     </div>
                 </div>
             </div>
@@ -99,8 +139,8 @@
                     <img class="card-img-top img-fluid" src="images/products/tv-01.png" alt="Card image cap">
                     <div class="card-body">
                         <h4 class="card-title">Samsung SmartTV L14W2</h4>
-                        <p class="card-text">This is a longer card with supporting text below as a natural.</p>
-                        <p class="card-text"><small class="text-muted">Auction Starting : in 2d 11h 4min 3sec</small></p>
+                        <!-- <p class="card-text">This is a longer card with supporting text below as a natural.</p> -->
+                        <p class="card-text"><small class="text-muted">Auction starts in : 2d 11h 4min 3sec</small></p>
                     </div>
                 </div>
             </div>
@@ -110,7 +150,7 @@
                     <div class="card-body">
                         <h4 class="card-title">LG Magnum 154</h4>
                         <p class="card-text">This is a longer card with supporting text below as a natural.</p>
-                        <p class="card-text"><small class="text-muted">Auction Starting : in 2d 1h 55min 31sec</small></p>
+                        <p class="card-text"><small class="text-muted">Auction starts in : 2d 1h 55min 31sec</small></p>
                     </div>
                 </div>
             </div>

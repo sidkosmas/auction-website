@@ -15,7 +15,16 @@
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 
+	<!-- ICON -->
+	<link rel="icon" href="images/icon.png">
+	
     <style>
+		body {
+			background-image: url("images/background.png");
+			background-repeat: no-repeat;
+			background-color: #7C8E9E;
+		}
+		
         .navbar {
             margin-left: 30px;
             margin-right: 38px;
@@ -85,7 +94,7 @@
         </ul>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" href="#!">Login</a>
+                <a id="login" class="nav-link" href="#!">Login</a>
             </li>
             <li class="nav-item">
                 <a id="signup" class="nav-link" href="#!">Sign up</a>
@@ -162,6 +171,12 @@
 
         $("#homebutton").click(function() {
             $("#replacement").load("products.html");
+			$("footer").css('margin-top', '0');
+        });
+		
+		$("#login").click(function() {
+            $("#replacement").load("login.html");
+			
         });
 
     });

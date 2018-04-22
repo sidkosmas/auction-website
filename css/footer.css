@@ -10,6 +10,16 @@
 	margin-top: 80px;
 }
 
+#payment_methods
+{
+	margin-top: 20px;
+}
+
+#about_store
+{
+	margin-top: -20px;
+}
+
 .footer-distributed .footer-left,
 .footer-distributed .footer-center,
 .footer-distributed .footer-right{

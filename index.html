@@ -15,26 +15,29 @@
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 
-	<!-- ICON -->
-	<link rel="icon" href="images/icon.png">
-	
+    <!-- ICON -->
+    <link rel="icon" href="images/icon.png">
+
     <style>
-		body {
-			background-image: url("images/background.png");
-			background-repeat: no-repeat;
-			background-color: #7C8E9E;
-		}
-		
+        body {
+            background-image: url("images/background.png");
+            background-repeat: no-repeat;
+            background-color: #7C8E9E;
+        }
+        
         .navbar {
             margin-left: 30px;
             margin-right: 38px;
+			border-top: 1px solid #BEC4D0;
+			border-bottom: 1px solid #BEC4D0;
         }
         
         .logosite {
-            height: 20%;
-            width: 20%;
-            margin-left: 30px;
-            margin-top: 10px;
+            height: 25%;
+            width: 25%;
+			margin-top: 20px;
+			margin-bottom: 20px;
+			margin-left: 80px;
         }
         
         #aright {
@@ -47,27 +50,16 @@
         #replacement {
             margin-left: 160px;
         }
+        
     </style>
 
-    <script>
-    </script>
 </head>
 
 <body>
-    <!-- <div class="container">
-		<div class="row">
-			<div class="col"> -->
-    <img src="images/logosite.png" class="logosite" />
-    <!-- </div>
-			<div class="col">
-				<form class="form-inline my-2 my-lg-0">
-					<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-				</form>
-			</div>
-		</div>
-	</div> -->
 
+	<!-- Logo -->
+	<a href="index.html"><img src="images/logosite.png" class="logosite" /></a>
+	
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a id="homebutton" class="navbar-brand" href="#"><img src="images/home.png" class="logo" /></a>
@@ -101,7 +93,8 @@
             </li>
         </ul>
     </nav>
-
+	
+	<!-- Ad and replacement -->
     <div class="d-flex justify-content-center">
 
         <div class="p-2">
@@ -147,7 +140,7 @@
         </div>
 
         <div class="footer-right">
-            <p class="footer-company-about">
+            <p id="about_store" class="footer-company-about">
                 <span>About the store</span>
 
             </p>
@@ -155,6 +148,13 @@
                 <a href="#"><i class="fa fa-facebook"></i></a>
                 <a href="#"><i class="fa fa-google"></i></a>
                 <a href="#"><i class="fa fa-twitter"></i></a>
+            </div>
+			<p id="payment_methods" class="footer-company-about">
+				<span>Payment methods</span>
+			</p>
+			<div class="footer-icons">
+                <a href="#"><i class="fa fa-cc-visa"></i></a>
+                <a href="#"><i class="fa fa-cc-paypal"></i></a>
             </div>
         </div>
     </footer>
@@ -166,17 +166,17 @@
     $(document).ready(function() {
         $("#signup").click(function() {
             $("#replacement").load("register.html");
-			$("footer").css('margin-top','250px');
+            $("footer").css('margin-top', '250px');
         });
 
         $("#homebutton").click(function() {
             $("#replacement").load("products.html");
-			$("footer").css('margin-top', '0');
+            $("footer").css('margin-top', '0');
         });
-		
-		$("#login").click(function() {
+
+        $("#login").click(function() {
             $("#replacement").load("login.html");
-			
+
         });
 
     });

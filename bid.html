@@ -1,14 +1,105 @@
 <style>
-	#product_image
+    #preview_product {
+        max-height: 500px;
+        max-width: 500px;
+		margin-top: 80px;
+		margin-right: 40px;
+		border: 2px solid #007bff;
+    }
+    
+    #comments {
+        background: #f9f9f9;
+        width: 400px;
+        height: 100px;
+        overflow-y: scroll;
+    }
+    
+    #bid-flexbox {
+        margin-top: 20px;
+    }
+    
+    #b_button {
+        width: 100%;
+    }
+    
+    #w_button {
+        width: 100%;
+        margin-top: 5px;
+        background: white;
+    }
+	
+	#bid_table
 	{
-		height: 200px;
-		width: 250px;
+		margin-top: -50px;
 	}
+	
+	#bidding
+	{
+		height: 65%;
+		margin-bottom: 20px;
+	}
+	
+	#comments
+	{
+		margin-top: -80px;
+	}
+	
+	#post_button
+	{
+		width: 100%;
+	}
+	
 </style>
 
-<img id="product_image" src="images/products/console-01.png" />
+<div id="bid-flexbox" class="d-flex flex-row">
+    <div class="p-2"><img id="preview_product" src="images/products/console-01.png" /></div>
+    <div class="p-2">
 
-<div class="form-group">
-	<label for="comment">Comment:</label>
-	<textarea class="form-control" rows="5" id="comment"></textarea>
-</div> 
+        <div id="bidding" class="jumbotron">
+			<div id="bid_table">
+            <table  class="table table-borderless">
+                <tbody>
+                    <tr>
+                        <td><small>Time left:</small></td>
+                        <td>8h 3m 25s</td>
+                    </tr>
+                    <tr>
+                        <td><small>Current bit:</small></td>
+                        <td><b>EU 100.00€</b></td>
+                        <td><small>[ 100 bids ]</small></td>
+                    </tr>
+                </tbody>
+            </table>
+			</div>
+            <div>
+                <button type="button" id="b_button" class="btn btn-primary">Bid</button>
+            </div>
+            <div>
+                <button type="button" id="w_button" class="btn btn-outline-primary">Watch</button>
+            </div>
+        </div>
+
+        <div id="comments">
+            kosmiso : I will buy dat... :D
+            <br> nikos : Yeah you
+            <br> kosmiso : I will buy dat... :D
+            <br> nikos : Yeah you
+            <br> kosmiso : I will buy dat... :D
+            <br> nikos : Yeah you
+            <br> kosmiso : I will buy dat... :D
+            <br> nikos : Yeah you
+            <br> kosmiso : I will buy dat... :D
+            <br> nikos : Yeah you
+            <br> kosmiso : I will buy dat... :D
+            <br> nikos : Yeah you wish!
+            <br>
+        </div>
+
+        <div class="form-group">
+            <label for="comment">Comment:</label>
+            <textarea class="form-control" rows="2" id="comment"></textarea>
+        </div>
+
+        <button id="post_button" type="button" class="btn btn-outline-primary">Post</button>
+    </div>
+</div>

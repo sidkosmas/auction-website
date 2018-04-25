@@ -15,14 +15,18 @@
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 
+	<!-- MODAL related -->
+	<link rel="stylesheet" type="text/css" href="css/custom.css">
+	<!-- <link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed" rel="stylesheet"> -->
+	
     <!-- ICON -->
     <link rel="icon" href="images/icon.png">
 
     <style>
         body {
-            background-image: url("images/background.png");
-            background-repeat: no-repeat;
-            background-color: #7C8E9E;
+          //  background-image: url("images/background.png");
+          //  background-repeat: no-repeat;
+          //  background-color: #7C8E9E;
         }
         
         .navbar {
@@ -84,8 +88,8 @@
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a id="login" class="nav-link" href="#!">Login</a>
+            <li class="nav-item open-modal">
+                <a id="login" href="#myModal" class="nav-link trigger-btn" data-toggle="modal">Login</a>
             </li>
             <li class="nav-item">
                 <a id="signup" class="nav-link" href="#!">Sign up</a>
@@ -157,6 +161,37 @@
             </div>
         </div>
     </footer>
+	
+	<!-- Login MODAL -->
+	<div id="myModal" class="modal fade text-center">
+        <div class="modal-dialog">
+            <div class="col-lg-8 col-sm-8 col-12 main-section">
+                <div class="modal-content">
+                    <div class="col-lg-12 col-sm-12 col-12 user-img">
+                        <img src="images/man.png">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12 user-name">
+                        <h1>User Login</h1>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12 form-input">
+                        <form>
+                            <div class="form-group">
+                                <input type="email" class="form-control" placeholder="Enter email">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" placeholder="Password">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </form>
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12 link-part">
+                        <a href="http://www.nicesnippets.com" target="_blank">Forgot Password?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 <script>
@@ -172,14 +207,10 @@
             $("#replacement").load("products.html");
             $("footer").css('margin-top', '0');
         });
-
-        $("#login").click(function() {
-            $("#replacement").load("login.html");
-
-        });
 		
 		$(".bid_now_button").click(function() {
             $("#replacement").load("bid.html");
+			$("footer").css('margin-top', '180px');
 
         });
 

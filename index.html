@@ -87,7 +87,7 @@
                 <a class="nav-link" href="#!">TVs</a>
             </li>
         </ul>
-        <ul class="navbar-nav ml-auto">
+        <ul id="right_navbar" class="navbar-nav ml-auto">
             <li class="nav-item open-modal">
                 <a id="login" href="#myModal" class="nav-link trigger-btn" data-toggle="modal">Login</a>
             </li>
@@ -106,9 +106,8 @@
 
         <div class="p-2">
             <div id="replacement">
-
+				<!-- Page content is added here -->
             </div>
-
         </div>
     </div>
 
@@ -196,7 +195,8 @@
 </body>
 <script>
     $("#replacement").load("products.html");
-
+	//$("#right_navbar").load("home.html");
+	
     $(document).ready(function() {
         $("#signup").click(function() {
             $("#replacement").load("register.html");

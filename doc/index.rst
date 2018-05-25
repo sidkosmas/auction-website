@@ -20,9 +20,14 @@ Indices and tables
 * :ref:`search`
 
 .. toctree::
-   :maxdepth: 2
+	:maxdepth: 2
+	
+	1.introduction
 
-   1.installation
+.. toctree::
+	:maxdepth: 2
+	
+	2.installation
    
 .. toctree::
 	:maxdepth: 2

@@ -32,4 +32,9 @@ Indices and tables
 .. toctree::
 	:maxdepth: 2
 	
+	3.create-project
+	
+.. toctree::
+	:maxdepth: 2
+	
 	0.cheatsheet

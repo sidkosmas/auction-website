@@ -1,0 +1,60 @@
+Creating the project
+++++++++++++++++++++
+
+Generating the necessary files
+------------------------------
+
+From the command line, cd into a directory where 
+you’d like to store your code, then run the following 
+command : ::
+ >> django-admin startproject auctionsonline
+
+This will create a directory named auctionsonline in your 
+current directory.
+
+If we look at the directory we created::
+
+ mysite/
+    manage.py
+    mysite/
+        __init__.py
+        settings.py
+        urls.py
+        wsgi.py
+
+This files are:
+
+* ``manage.py`` : A command-line utility that lets you interact with this Django project in various ways. We will use this file a lot.
+
+* ``settings.py`` : Settings/configuration for this Django project.
+
+* ``urls.py`` : The URL declarations for this Django project.
+
+* ``__init__.py`` : An empty file that tells Python that this directory should be considered a Python package.
+
+* ``wsgi.py`` : An entry-point for WSGI-compatible web servers to serve your project
+
+Testing the Django Project 
+--------------------------
+
+To verify if the django project works run the following 
+command : ::
+ >> python manage.py runserver
+
+We should see the following output : ::
+
+ Performing system checks...
+
+ System check identified no issues (0 silenced).
+
+ You have unapplied migrations; your app may not work properly until they are applied.
+ Run 'python manage.py migrate' to apply them.
+
+ June 01, 2018 - 15:50:53
+ Django version 2.0, using settings 'auctionsonline.settings'
+ Starting development server at http://127.0.0.1:8000/
+ Quit the server with CONTROL-C.
+
+We've started the django development server, a lightweight web server which is used for
+rapid development. This web server MUSTN'T be used in a production enviroment.
+ 

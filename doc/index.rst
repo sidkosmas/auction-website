@@ -15,10 +15,6 @@ Welcome to Django Tutorial's documentation!
 Indices and tables
 ==================
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
 .. toctree::
 	:maxdepth: 2
 	
@@ -33,6 +29,11 @@ Indices and tables
 	:maxdepth: 2
 	
 	3.create-project
+
+.. toctree::
+	:maxdepth: 2
+	
+	4.model-layer
 	
 .. toctree::
 	:maxdepth: 2

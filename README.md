@@ -1,6 +1,3 @@
-# https://docs.djangoproject.com/en/1.7/howto/static-files/#configuring-static-files
-
-
 # Django Tutorial
 
 1 - Installation<br>
@@ -12,4 +9,10 @@
 7 - The development process<br>
 8 - The admin<br>
 9 - Security<br>
+
 Sources<br>
+
+* https://docs.djangoproject.com/en/1.7/howto/static-files/#configuring-static-files
+* https://www.b-list.org/weblog/2006/sep/10/django-tips-laying-out-application/
+* https://www.tutorialspoint.com/django/
+* https://djangobook.com/

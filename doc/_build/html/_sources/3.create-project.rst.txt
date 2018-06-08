@@ -57,4 +57,59 @@ We should see the following output : ::
 
 We've started the django development server, a lightweight web server which is used for
 rapid development. This web server MUSTN'T be used in a production enviroment.
- 
+
+Creating the first app
+----------------------
+
+Projects vs Apps
+================
+
+This is really more of a separate (though related) question, but understanding the 
+distinction Django draws between a “project” and an “application” is a big part of 
+good code layout. Roughly speaking, this is what the two terms mean:
+
+* An application tries to provide a single, relatively self-contained set of related functions. An application is allowed to define a set of models (though it doesn’t have to) and to define and register custom template tags and filters (though, again, it doesn’t have to).
+* A project is a collection of applications, installed into the same database, and all using the same settings file. In a sense, the defining aspect of a project is that it supplies a settings file which specifies the database to use, the applications to install, and other bits of configuration. A project may correspond to a single web site, but doesn’t have to — multiple projects can run on the same site. The project is also responsible for the root URL configuration, though in most cases it’s useful to just have that consist of calls to include which pull in URL configurations from inidividual applications.
+
+Views, custom manipulators, custom context processors and most other things Django lets you create can 
+all be defined either at the level of the project or of the application, and where you do that should 
+depend on what’s most effective for you; in general, though, they’re best placed inside an application 
+(this increases their portability across projects). 
+
+Creating the website app
+========================
+
+To create the app we need to be in the same directory as manage.py. Executing this 
+command : ::
+
+ >> python manage.py startapp website
+
+will create an app called website and the following files will be created. ::
+
+ website/
+    __init__.py
+    admin.py
+    apps.py
+    migrations/
+        __init__.py
+    models.py
+    tests.py
+    views.py
+
+This files are:
+
+* ``__init__.py`` : 
+
+* ``admin.py`` : Registers models to the admin site.
+
+* ``apps.py`` : This file is created to help the user include any application configuration for the app. Using this, you can configure some of the attributes of the application.
+
+* ``migrations/__init__.py`` : 
+
+* ``models.py`` : Defines a class that represents table or collection in our DB, and where every attribute of the class is a field of the table or collection.
+
+* ``tests.py`` : 
+
+* ``views.py`` : A set of functions that take a web request and return a web response. This response can be the HTML contents of a Web page, or a redirect, or a 404 error, or an XML document, or an image, etc.
+
+Now that we created both the project and the app we are ready to move forward to the next chapter where we will create the database for the website.

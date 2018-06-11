@@ -15,10 +15,10 @@
     <link rel="stylesheet" href="/static/css/footer.css">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 
-	<!-- MODAL related -->
+	<!-- MODAL related - Login -->
 	<link rel="stylesheet" type="text/css" href="/static/css/custom.css">
 	<!-- <link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed" rel="stylesheet"> -->
-	
+
     <!-- ICON -->
     <link rel="icon" href="/static/images/icon.png">
 
@@ -65,7 +65,7 @@
 	
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a id="homebutton" class="navbar-brand" href="#"><img src="/static/images/home.png" class="logo" /></a>
+        <a id="homebutton" class="navbar-brand" href="{% url 'website:index' %}"><img src="/static/images/home.png" class="logo" /></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -106,12 +106,12 @@
 
         <div class="p-2">
             <div id="replacement">
-				{% include "products.html" %}
+				{% include "register.html" %}
             </div>
         </div>
     </div>
 
-    <footer class="footer-distributed">
+     <footer class="footer-distributed">
         <div class="footer-left">
             <h3>Auctions<span>online</span></h3>
             <p class="footer-links">
@@ -151,15 +151,15 @@
                 <a href="#"><i class="fa fa-google"></i></a>
                 <a href="#"><i class="fa fa-twitter"></i></a>
             </div>
-			<p id="payment_methods" class="footer-company-about">
-				<span>Payment methods</span>
-			</p>
-			<div class="footer-icons">
+            <p id="payment_methods" class="footer-company-about">
+                <span>Payment methods</span>
+            </p>
+            <div class="footer-icons">
                 <a href="#"><i class="fa fa-cc-visa"></i></a>
                 <a href="#"><i class="fa fa-cc-paypal"></i></a>
             </div>
         </div>
-    </footer>
+    </footer>   
 	
 	<!-- Login MODAL -->
 	<div id="myModal" class="modal fade text-center">
@@ -167,7 +167,7 @@
             <div class="col-lg-8 col-sm-8 col-12 main-section">
                 <div class="modal-content">
                     <div class="col-lg-12 col-sm-12 col-12 user-img">
-                        <img src="images/man.png">
+                        <img src="/static/images/man.png">
                     </div>
                     <div class="col-lg-12 col-sm-12 col-12 user-name">
                         <h1>User Login</h1>
@@ -191,30 +191,5 @@
             </div>
         </div>
     </div>
-
 </body>
-<script>
-    $("#replacement").load("products.html");
-	//$("#right_navbar").load("home.html");
-	
-    $(document).ready(function() {
-        $("#signup").click(function() {
-            $("#replacement").load("register.html");
-            $("footer").css('margin-top', '250px');
-        });
-
-        $("#homebutton").click(function() {
-            $("#replacement").load("products.html");
-            $("footer").css('margin-top', '0');
-        });
-		
-		$(".bid_now_button").click(function() {
-            $("#replacement").load("bid.html");
-			$("footer").css('margin-top', '180px');
-
-        });
-
-    });
-</script>
-
 </html>

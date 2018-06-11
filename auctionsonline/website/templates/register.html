@@ -1,265 +1,106 @@
-<!-- Stylesheets -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-
-<style>
-	@media(min-width: 768px) {
-		.field-label-responsive {
-			padding-top: .5rem;
-			text-align: right;
-		}
-	}
-	
-</style>
-
-<div class="container">
-    <form class="form-horizontal" role="form" method="POST" action="/register">
-		<div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-8">
-                <h2>Register New User</h2>
-				<hr>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Auctions Online - Registration Page</title>
+    <style>
+        #reg { margin-top : 20px; }
+        #subbut {margin-top: 20px; margin-left: 152px;}
+        .frm { margin-top: -15px; }
+    </style>
+</head>
+<body>
+    <div id="reg">
+    <div>
+        <h2>Register New User</h2>
+        <hr>
+    </div>
+       
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group row">
+                <label class="col-sm-8 col-form-label frm">Username</label>
+                <div class="input-group col-sm-10">
+                    <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+                    <input type="text" class="form-control" id="username">
+                </div>                
             </div>
-        </div>
-		
-		<div class="d-flex justify-content-center">
-
-        <div class="p-2">
-		
-        <div class="row">
-            <div class="col-md-3 field-label-responsive">
-                <label for="name">Username</label>
-            </div>
-            <div class="col-md-8">
-                <div class="form-group">
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
-                        <input type="text" name="name" class="form-control" id="name"
-                               placeholder="john.doe" required autofocus>
-                    </div>
+            <div class="form-group row">
+                <label class="col-sm-8 col-form-label frm" for="group1B">Email</label>
+                <div class="input-group col-sm-10">
+                    <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
+                    <input type="email" class="form-control" id="email">
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="form-control-feedback">
-                        <span class="text-danger align-middle">
-                            <!-- Put name validation error messages here -->
-                        </span>
+            <div class="form-group row">
+                <label class="col-sm-8 col-form-label frm" for="group1B">Password</label>
+                <div class="input-group col-sm-10">
+                    <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
+                    <input type="password" class="form-control" id="password">
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3 field-label-responsive">
-                <label for="email">E-Mail</label>
-            </div>
-            <div class="col-md-8">
-                <div class="form-group">
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
-                        <input type="text" name="email" class="form-control" id="email"
-                               placeholder="you@example.com" required autofocus>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-control-feedback">
-                        <span class="text-danger align-middle">
-                            <!-- Put e-mail validation error messages here -->
-                        </span>
+            <div class="form-group row">
+                <label class="col-sm-8 col-form-label frm" for="group1B">Confirm Password</label>
+                <div class="input-group col-sm-10">
+                    <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
+                    <input type="password" class="form-control" id="confpassword">
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-3 field-label-responsive">
-                <label for="password">Password</label>
-            </div>
-            <div class="col-md-8">
-                <div class="form-group has-danger">
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
-                        <input type="password" name="password" class="form-control" id="password"
-                               placeholder="Password" required>
-                    </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group row">
+                <label class="col-sm-8 col-form-label frm">First Name</label>
+                <div class="input-group col-sm-10">
+                    <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+                    <input type="firstname" class="form-control" id="firstname">
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="form-control-feedback">
-                        <span class="text-danger align-middle">
-                            <!-- <i class="fa fa-close"> Example Error Message</i> -->
-                        </span>
+            <div class="form-group row">
+                <label class="col-sm-8 col-form-label frm">Last Name</label>
+                <div class="input-group col-sm-10">
+                    <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+                    <input type="lastname" class="form-control" id="lastname">
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3 field-label-responsive">
-                <label for="password">Confirm Password</label>
-            </div>
-            <div class="col-md-8">
-                <div class="form-group">
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <div class="input-group-addon" style="width: 2.6rem">
-                            <i class="fa fa-repeat"></i>
-                        </div>
-                        <input type="password" name="password-confirmation" class="form-control"
-                               id="password-confirm" placeholder="Password" required>
-                    </div>
+            <div class="form-group row">
+                <label class="col-sm-8 col-form-label frm">Cellphone</label>
+                <div class="input-group col-sm-10">
+                    <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-phone"></i></div>
+                    <input type="text" class="form-control" id="cellphone">
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-8">
-                <button type="submit" class="btn btn-info"><i class="fa fa-user-plus"></i> Register</button>
+            <div class="form-group row">
+                <label class="col-sm-8 col-form-label frm">Address</label>
+                <div class="input-group col-sm-10">
+                    <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-map-marker"></i></div>
+                    <input type="text" class="form-control" id="address">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-8 col-form-label frm">Town</label>
+                <div class="input-group col-sm-10">
+                    <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-location-arrow"></i></div>
+                    <input type="text" class="form-control" id="town">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-8 col-form-label frm">Postal Code</label>
+                <div class="input-group col-sm-10">
+                    <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-map-marker"></i></div>
+                    <input type="text" class="form-control" id="postcode">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-8 col-form-label frm">Country</label>
+                <div class="input-group col-sm-10">
+                    <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-globe"></i></div>
+                    <input type="text" class="form-control" id="country">
+                </div>
+            </div>
+            <div class="form-group row">                
+                <button id="subbut" type="submit" class="btn btn-primary col-sm-5">Submit</button>
             </div>
         </div>
-    
-		</div>
-		<div class="p-2">
-			<div class="row">
-				<div class="col-md-3 field-label-responsive">
-					<label for="name">Name</label>
-				</div>
-				<div class="col-md-8">
-					<div class="form-group">
-						<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-							<div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
-							<input type="text" name="name" class="form-control" id="name"
-								   placeholder="John" required autofocus>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="form-control-feedback">
-							<span class="text-danger align-middle">
-								<!-- Put name validation error messages here -->
-							</span>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-3 field-label-responsive">
-					<label for="name">Lastname</label>
-				</div>
-				<div class="col-md-8">
-					<div class="form-group">
-						<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-							<div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
-							<input type="text" name="name" class="form-control" id="name"
-								   placeholder="Doe" required autofocus>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="form-control-feedback">
-							<span class="text-danger align-middle">
-								<!-- Put name validation error messages here -->
-							</span>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-3 field-label-responsive">
-					<label for="name">Cellphone</label>
-				</div>
-				<div class="col-md-8">
-					<div class="form-group">
-						<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-							<div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-phone"></i></div>
-							<input type="tel" name="name" class="form-control" id="name"
-								   placeholder="(+30) 6977777777" required autofocus>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="form-control-feedback">
-							<span class="text-danger align-middle">
-								<!-- Put name validation error messages here -->
-							</span>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-3 field-label-responsive">
-					<label for="name">Address</label>
-				</div>
-				<div class="col-md-8">
-					<div class="form-group">
-						<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-							<div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-map-marker"></i></div>
-							<input type="text" name="name" class="form-control" id="name"
-								   placeholder="10, Review Road" required autofocus>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="form-control-feedback">
-							<span class="text-danger align-middle">
-								<!-- Put name validation error messages here -->
-							</span>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-3 field-label-responsive">
-					<label for="name">Town</label>
-				</div>
-				<div class="col-md-8">
-					<div class="form-group">
-						<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-							<div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-location-arrow"></i></div>
-							<input type="text" name="name" class="form-control" id="name"
-								   placeholder="London" required autofocus>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="form-control-feedback">
-							<span class="text-danger align-middle">
-								<!-- Put name validation error messages here -->
-							</span>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-3 field-label-responsive">
-					<label for="name">Post code</label>
-				</div>
-				<div class="col-md-8">
-					<div class="form-group">
-						<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-							<div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-map-marker"></i></div>
-							<input type="text" name="name" class="form-control" id="name"
-								   placeholder="NW2 7BH" required autofocus>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="form-control-feedback">
-							<span class="text-danger align-middle">
-								<!-- Put name validation error messages here -->
-							</span>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-3 field-label-responsive">
-					<label for="name">Country</label>
-				</div>
-				<div class="col-md-8">
-					<div class="form-group">
-						<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-							<div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-globe"></i></div>
-							<input type="text" name="name" class="form-control" id="name"
-								   placeholder="United Kingdom" required autofocus>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="form-control-feedback">
-							<span class="text-danger align-middle">
-								<!-- Put name validation error messages here -->
-							</span>
-					</div>
-				</div>
-			</div>
-        </div>
-	</form>
-</div>
+    </div>
+    </div>
+</body>
+</html>

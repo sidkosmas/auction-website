@@ -6,8 +6,8 @@ app_name = 'website'
 urlpatterns = [
 	path('', views.index, name='index'),
 	path('register/', views.register, name='register'),
-	path('',views.login, name='login'),
-    path('',views.profile, name='profile'),
-    path('',views.bid, name='bid'),
+	path('login/',views.login, name='login'),
+    path('profile/',views.profile, name='profile'),
+    path('bid/',views.bid, name='bid'),
 
 ]

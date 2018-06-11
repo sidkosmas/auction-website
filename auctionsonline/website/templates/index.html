@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="/static/css/footer.css">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 
-	<!-- MODAL related -->
+	<!-- MODAL related - Login -->
 	<link rel="stylesheet" type="text/css" href="/static/css/custom.css">
 	<!-- <link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed" rel="stylesheet"> -->
 
@@ -111,7 +111,55 @@
         </div>
     </div>
 
-   
+     <footer class="footer-distributed">
+        <div class="footer-left">
+            <h3>Auctions<span>online</span></h3>
+            <p class="footer-links">
+                <a href="#">Home</a> ·
+                <a href="#">Blog</a> ·
+                <a href="#">Pricing</a> ·
+                <a href="#">About</a> ·
+                <a href="#">Faq</a> ·
+                <a href="#">Contact</a>
+            </p>
+            <p class="footer-company-name">Auctions Online &copy; 2018</p>
+        </div>
+        <div class="footer-center">
+            <div>
+                <i class="fa fa-map-marker"></i>
+                <p><span>Papasiopoulou 2-4</span> Lamia, Greece</p>
+            </div>
+
+            <div>
+                <i class="fa fa-phone"></i>
+                <p>+0030 2231 066900</p>
+            </div>
+
+            <div>
+                <i class="fa fa-envelope"></i>
+                <p><a href="mailto:admin@auctionson.com">admin@auctionson.com</a></p>
+            </div>
+        </div>
+
+        <div class="footer-right">
+            <p id="about_store" class="footer-company-about">
+                <span>About the store</span>
+
+            </p>
+            <div class="footer-icons">
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-google"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+            </div>
+            <p id="payment_methods" class="footer-company-about">
+                <span>Payment methods</span>
+            </p>
+            <div class="footer-icons">
+                <a href="#"><i class="fa fa-cc-visa"></i></a>
+                <a href="#"><i class="fa fa-cc-paypal"></i></a>
+            </div>
+        </div>
+    </footer>   
 	
 	<!-- Login MODAL -->
 	<div id="myModal" class="modal fade text-center">
@@ -143,30 +191,5 @@
             </div>
         </div>
     </div>
-
 </body>
-<script>
-    $("#replacement").load("products.html");
-	//$("#right_navbar").load("home.html");
-	
-    $(document).ready(function() {
-        $("#signup").click(function() {
-            $("#replacement").load("register.html");
-            $("footer").css('margin-top', '250px');
-        });
-
-        $("#homebutton").click(function() {
-            $("#replacement").load("products.html");
-            $("footer").css('margin-top', '0');
-        });
-		
-		$(".bid_now_button").click(function() {
-            $("#replacement").load("bid.html");
-			$("footer").css('margin-top', '180px');
-
-        });
-
-    });
-</script>
-
 </html>

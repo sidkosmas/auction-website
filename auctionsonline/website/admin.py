@@ -7,4 +7,7 @@ admin.site.register(Chat)
 admin.site.register(Wishlist)
 admin.site.register(Bid)
 
+#Username : admin
+#Password : administrator
+
 # Register your models here.

@@ -20,8 +20,8 @@
 # -- Project information -----------------------------------------------------
 
 project = 'Django Tutorial'
-copyright = '2018, Kosmas Sidiropoulos'
-author = 'Kosmas Sidiropoulos'
+copyright = '2018, Kosmas Sidiropoulos, George Raftopoulos'
+author = 'Kosmas Sidiropoulos, George Raftopoulos'
 
 # The short X.Y version
 version = ''

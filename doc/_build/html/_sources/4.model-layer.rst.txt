@@ -1,5 +1,28 @@
 The Model Layer
----------------
++++++++++++++++
+
+Introduction to models
+----------------------
+
+Field types
+-----------
+
+* ``CharField``
+* ``DateTimeField``
+* ``IntegerField``
+* ``DecimalField``
+* ``EmailField``
+* ``ImageField``
+* ``TextField``
+
+Indexes
+-------
+
+* ``PrimaryKey``
+* ``ForeignKey``
+
+Building our own models
+-----------------------
 
 .. image:: database.png
 
@@ -49,3 +72,6 @@ The models.py file must look like this : ::
 	message = models.TextField()
 	time_sent = models.DateTimeField()
 
+
+Shell
+-----

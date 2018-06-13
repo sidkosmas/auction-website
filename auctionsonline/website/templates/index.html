@@ -1,4 +1,4 @@
-<!DOCTYPE html>  
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -106,7 +106,9 @@
 
         <div class="p-2">
             <div id="replacement">
-				{% include "register.html" %}
+                {% block body %}
+				{% include "products.html" %}
+                {% endblock %}
             </div>
         </div>
     </div>

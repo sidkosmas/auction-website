@@ -172,20 +172,27 @@
 <div class="section" id="field-types">
 <h2>Field types<a class="headerlink" href="#field-types" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">CharField</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">DateTimeField</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">IntegerField</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">DecimalField</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">EmailField</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">ImageField</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">TextField</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">CharField</span></code> : A string field for small strings. Also it requires the maximum length of the string as an argument.</li>
+<li><code class="docutils literal notranslate"><span class="pre">DateTimeField</span></code> : A date and time, represented in Python.</li>
+<li><code class="docutils literal notranslate"><span class="pre">IntegerField</span></code> : An integer. Values from -2147483648 to 2147483647 are safe in all databases supported by Django.</li>
+<li><code class="docutils literal notranslate"><span class="pre">DecimalField</span></code> : A fixed-precision decimal number, represented in Python by a Decimal instance. Has two required arguments</li>
 </ul>
+<blockquote>
+<div><p><strong>DecimalField.max_digits</strong> : The maximum number of digits allowed in the number. Note that this number must be greater than or equal to decimal_places.</p>
+<p><strong>DecimalField.decimal_places</strong> : The number of decimal places to store with the number.</p>
+</div></blockquote>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">EmailField</span></code> : A CharField that checks that the value is a valid email address. It uses EmailValidator to validate the input.</li>
+<li><code class="docutils literal notranslate"><span class="pre">ImageField</span></code> : Inherits all attributes and methods from FileField, but also validates that the uploaded object is a valid image.</li>
+<li><code class="docutils literal notranslate"><span class="pre">TextField</span></code> : A large text field.</li>
+</ul>
+<p>For more field types check the official documentation <a class="reference external" href="https://docs.djangoproject.com/en/2.0/ref/models/fields/#django.db.models.DateField/">here</a>.</p>
 </div>
 <div class="section" id="indexes">
 <h2>Indexes<a class="headerlink" href="#indexes" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">PrimaryKey</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">ForeignKey</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">PrimaryKey</span></code> : In django an id field is added automatically acting as a primary key. Of course his behavior can be overridden.</li>
+<li><code class="docutils literal notranslate"><span class="pre">ForeignKey</span></code> : To define a many-to-one relationship, use <strong>django.db.models.ForeignKey</strong>. You use it just like any other Field type: by including it as a class attribute of your model.</li>
 </ul>
 </div>
 <div class="section" id="building-our-own-models">

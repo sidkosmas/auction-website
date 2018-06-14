@@ -7,19 +7,26 @@ Introduction to models
 Field types
 -----------
 
-* ``CharField``
-* ``DateTimeField``
-* ``IntegerField``
-* ``DecimalField``
-* ``EmailField``
-* ``ImageField``
-* ``TextField``
+* ``CharField`` : A string field for small strings. Also it requires the maximum length of the string as an argument.
+* ``DateTimeField`` : A date and time, represented in Python.
+* ``IntegerField`` : An integer. Values from -2147483648 to 2147483647 are safe in all databases supported by Django.
+* ``DecimalField`` : A fixed-precision decimal number, represented in Python by a Decimal instance. Has two required arguments
+
+ **DecimalField.max_digits** : The maximum number of digits allowed in the number. Note that this number must be greater than or equal to decimal_places.
+
+ **DecimalField.decimal_places** : The number of decimal places to store with the number.
+
+* ``EmailField`` : A CharField that checks that the value is a valid email address. It uses EmailValidator to validate the input.
+* ``ImageField`` : Inherits all attributes and methods from FileField, but also validates that the uploaded object is a valid image.
+* ``TextField`` : A large text field.
+
+For more field types check the official documentation `here <https://docs.djangoproject.com/en/2.0/ref/models/fields/#django.db.models.DateField/>`_.
 
 Indexes
 -------
 
-* ``PrimaryKey``
-* ``ForeignKey``
+* ``PrimaryKey`` : In django an id field is added automatically acting as a primary key. Of course his behavior can be overridden.
+* ``ForeignKey`` : To define a many-to-one relationship, use **django.db.models.ForeignKey**. You use it just like any other Field type: by including it as a class attribute of your model.
 
 Building our own models
 -----------------------

@@ -13,13 +13,22 @@ class User(models.Model):
 	town = models.CharField(max_length=45)
 	post_code = models.CharField(max_length=45)
 	country = models.CharField(max_length=45)
+	
+	def __str__(self):
+		return "(" + self.username + ", " + self.email + ")"
 
 class Product(models.Model):
 	title = models.CharField(max_length=255)
-	image = models.ImageField()
+	image = models.ImageField(upload_to='images/')
 	description = models.CharField(max_length = 500)
 	quantity = models.IntegerField()
 	date_posted = models.DateTimeField(auto_now_add=True, blank=True)
+	
+	def __str__(self):
+		return "Title : " + str(self.title) + "\n" + \
+			"Image : " + str(self.image) + "\n" + \
+			"Description : " + str(self.description) + "\n" + \
+			"Quantity : " + str(self.quantity) + "\n"
 
 class Auction(models.Model):
 	product_id = models.ForeignKey(Product, on_delete=models.CASCADE)

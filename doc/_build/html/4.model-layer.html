@@ -168,6 +168,7 @@
 <h1>The Model Layer<a class="headerlink" href="#the-model-layer" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="introduction-to-models">
 <h2>Introduction to models<a class="headerlink" href="#introduction-to-models" title="Permalink to this headline">¶</a></h2>
+<p>By default, the configuration uses SQLite. If you’re new to databases, or you’re just interested in trying Django, this is the easiest choice. SQLite is included in Python, so you won’t need to install anything else to support your database.</p>
 </div>
 <div class="section" id="field-types">
 <h2>Field types<a class="headerlink" href="#field-types" title="Permalink to this headline">¶</a></h2>
@@ -198,7 +199,7 @@
 <div class="section" id="building-our-own-models">
 <h2>Building our own models<a class="headerlink" href="#building-our-own-models" title="Permalink to this headline">¶</a></h2>
 <img alt="_images/database.png" src="_images/database.png" />
-<p>The models.py file must look like this :</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">models.py</span></code> file must look like this :</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.db</span> <span class="k">import</span> <span class="n">models</span>
 
 <span class="c1"># Create your models here.</span>
@@ -247,6 +248,55 @@
 </div>
 <div class="section" id="shell">
 <h2>Shell<a class="headerlink" href="#shell" title="Permalink to this headline">¶</a></h2>
+<p>Now, we can use an interactive Python shell that API Django gives you.
+To invoke the Python shell, use this command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt; $ python manage.py shell
+</pre></div>
+</div>
+<p>We should see the following text:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Python</span> <span class="mf">3.6</span><span class="o">.</span><span class="mi">4</span> <span class="p">(</span><span class="n">v3</span><span class="o">.</span><span class="mf">6.4</span><span class="p">:</span><span class="n">d48eceb</span><span class="p">,</span> <span class="n">Dec</span> <span class="mi">19</span> <span class="mi">2017</span><span class="p">,</span> <span class="mi">06</span><span class="p">:</span><span class="mi">04</span><span class="p">:</span><span class="mi">45</span><span class="p">)</span> <span class="p">[</span><span class="n">MSC</span> <span class="n">v</span><span class="o">.</span><span class="mi">1900</span> <span class="mi">32</span> <span class="n">bit</span> <span class="p">(</span><span class="n">Intel</span><span class="p">)]</span> <span class="n">on</span> <span class="n">win32</span>
+<span class="n">Type</span> <span class="s2">&quot;help&quot;</span><span class="p">,</span> <span class="s2">&quot;copyright&quot;</span><span class="p">,</span> <span class="s2">&quot;credits&quot;</span> <span class="ow">or</span> <span class="s2">&quot;license&quot;</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span><span class="o">.</span>
+<span class="p">(</span><span class="n">InteractiveConsole</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>Using the shell we will create a new user for our website. Running the following commands:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">website.models</span> <span class="k">import</span> <span class="n">User</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Creates an User object.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">user1</span> <span class="o">=</span> <span class="n">User</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">user1</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="s2">&quot;dummy1&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">user1</span><span class="o">.</span><span class="n">email</span> <span class="o">=</span> <span class="s2">&quot;dummy1@mail.com&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">user1</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="s2">&quot;dummypassword&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">user1</span><span class="o">.</span><span class="n">balance</span> <span class="o">=</span> <span class="mf">20.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">user1</span><span class="o">.</span><span class="n">firstname</span> <span class="o">=</span> <span class="s2">&quot;Dummy&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">user1</span><span class="o">.</span><span class="n">lastname</span> <span class="o">=</span> <span class="s2">&quot;One&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">user1</span><span class="o">.</span><span class="n">cellphone</span> <span class="o">=</span> <span class="s2">&quot;6988757575&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">user1</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="s2">&quot;Dumadd 199&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">user1</span><span class="o">.</span><span class="n">town</span> <span class="o">=</span> <span class="s2">&quot;Dummtown&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">user1</span><span class="o">.</span><span class="n">post_code</span> <span class="o">=</span> <span class="s2">&quot;35100&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">user1</span><span class="o">.</span><span class="n">country</span> <span class="o">=</span> <span class="s2">&quot;Dummcon&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Saves User object to the database.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">user1</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>If we want to check if the user was successfully registered we execute this command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="go">&lt;QuerySet [&lt;User: User object (1)&gt;]&gt;</span>
+</pre></div>
+</div>
+<p>The result we get is quite unclear. Lets fix it by opening the models.py file and adding a <strong>__str__()</strong> method to User class</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+   <span class="o">...</span>
+
+   <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+       <span class="k">return</span> <span class="s2">&quot;(&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">email</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span>
+</pre></div>
+</div>
+<p>Now lets execute again the previous command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="go">&lt;QuerySet [&lt;User: (dummy1, dummy1@mail.com)&gt;]&gt;</span>
+</pre></div>
+</div>
 </div>
 </div>
 

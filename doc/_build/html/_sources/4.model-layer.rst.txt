@@ -4,6 +4,8 @@ The Model Layer
 Introduction to models
 ----------------------
 
+By default, the configuration uses SQLite. If you’re new to databases, or you’re just interested in trying Django, this is the easiest choice. SQLite is included in Python, so you won’t need to install anything else to support your database. 
+
 Field types
 -----------
 
@@ -33,7 +35,7 @@ Building our own models
 
 .. image:: database.png
 
-The models.py file must look like this : ::
+The ``models.py`` file must look like this : ::
 
  from django.db import models
 
@@ -79,6 +81,55 @@ The models.py file must look like this : ::
 	message = models.TextField()
 	time_sent = models.DateTimeField()
 
-
 Shell
 -----
+
+Now, we can use an interactive Python shell that API Django gives you. 
+To invoke the Python shell, use this command: ::
+
+ >> $ python manage.py shell
+
+We should see the following text: ::
+
+ Python 3.6.4 (v3.6.4:d48eceb, Dec 19 2017, 06:04:45) [MSC v.1900 32 bit (Intel)] on win32
+ Type "help", "copyright", "credits" or "license" for more information.
+ (InteractiveConsole)
+ >>>
+ 
+Using the shell we will create a new user for our website. Running the following commands: ::
+
+ >>> from website.models import User
+ >>> # Creates an User object.
+ >>> user1 = User()
+ >>> user1.username = "dummy1"
+ >>> user1.email = "dummy1@mail.com"
+ >>> user1.password = "dummypassword"
+ >>> user1.balance = 20.0
+ >>> user1.firstname = "Dummy"
+ >>> user1.lastname = "One"
+ >>> user1.cellphone = "6988757575"
+ >>> user1.address = "Dumadd 199"
+ >>> user1.town = "Dummtown"
+ >>> user1.post_code = "35100"
+ >>> user1.country = "Dummcon"
+ >>> # Saves User object to the database.
+ >>> user1.save()
+
+If we want to check if the user was successfully registered we execute this command: ::
+
+ >>> User.objects.all()
+ <QuerySet [<User: User object (1)>]>
+
+The result we get is quite unclear. Lets fix it by opening the models.py file and adding a **__str__()** method to User class ::
+
+ class User(models.Model):
+    ...
+    
+    def __str__(self):
+        return "(" + self.username + ", " + self.email + ")"
+
+
+Now lets execute again the previous command: ::
+
+ >>> User.objects.all()
+ <QuerySet [<User: (dummy1, dummy1@mail.com)>]>

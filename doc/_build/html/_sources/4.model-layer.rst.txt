@@ -10,6 +10,18 @@ Field types
 -----------
 
 * ``CharField`` : A string field for small strings. Also it requires the maximum length of the string as an argument.
+ 
+ **Field.choices** : An iterable (e.g., a list or tuple) consisting itself of iterables of exactly two items (e.g. [(A, B), (A, B) ...]) to use as choices for this field.
+ 
+ The first element in each tuple is the actual value to be set on the model, and the second element is the human-readable name. For example: ::
+  CATEGORIES = (
+    ('LAP', 'Laptop'),
+    ('CON', 'Console'),
+    ('GAD', 'Gadget'),
+    ('GAM', 'Game'),
+    ('TEL', 'TV'))
+
+
 * ``DateTimeField`` : A date and time, represented in Python.
 * ``IntegerField`` : An integer. Values from -2147483648 to 2147483647 are safe in all databases supported by Django.
 * ``DecimalField`` : A fixed-precision decimal number, represented in Python by a Decimal instance. Has two required arguments
@@ -54,10 +66,22 @@ The ``models.py`` file must look like this : ::
 	country = models.CharField(max_length=45)
 
  class Product(models.Model):
+	CATEGORIES = (
+            ('LAP', 'Laptop'),
+            ('CON', 'Console'),
+            ('GAD', 'Gadget'),
+            ('GAM', 'Game'),
+            ('TEL', 'TV')
+        )
+	
 	title = models.CharField(max_length=255)
 	image = models.ImageField()
 	description = models.CharField(max_length = 500)
 	quantity = models.IntegerField()
+	category = models.CharField(
+            max_length=2,
+            choices=CATEGORIES
+        )
 	date_posted = models.DateTimeField(auto_now_add=True, blank=True)
 
  class Auction(models.Model):
@@ -133,3 +157,6 @@ Now lets execute again the previous command: ::
 
  >>> User.objects.all()
  <QuerySet [<User: (dummy1, dummy1@mail.com)>]>
+
+The **User.objects.all()** is displaying all the User records in 
+the database showing the username and the email of each user.

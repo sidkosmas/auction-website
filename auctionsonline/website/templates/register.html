@@ -16,35 +16,36 @@
         <h2>Register New User</h2>
         <hr>
     </div>
-       
+    
+    <form method="post" action="register_v2/">{% csrf_token %}
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group row">
                 <label class="col-sm-8 col-form-label frm">Username</label>
                 <div class="input-group col-sm-10">
                     <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
-                    <input type="text" class="form-control" id="username">
+                    <input id="username" class="form-control" type="text" name="username" maxlength="45" required />
                 </div>                
             </div>
             <div class="form-group row">
                 <label class="col-sm-8 col-form-label frm" for="group1B">Email</label>
                 <div class="input-group col-sm-10">
                     <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
-                    <input type="email" class="form-control" id="email">
+                    <input id="email" class="form-control" type="email" name="email" required />
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-8 col-form-label frm" for="group1B">Password</label>
                 <div class="input-group col-sm-10">
                     <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
-                    <input type="password" class="form-control" id="password">
+                    <input id="password1" class="form-control" type="password" name="password1" required />
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-8 col-form-label frm" for="group1B">Confirm Password</label>
                 <div class="input-group col-sm-10">
                     <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
-                    <input type="password" class="form-control" id="confpassword">
+                    <input id="password2" class="form-control" type="password" name="password2" required />
                 </div>
             </div>
         </div>
@@ -53,56 +54,57 @@
                 <label class="col-sm-8 col-form-label frm">First Name</label>
                 <div class="input-group col-sm-10">
                     <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
-                    <input type="firstname" class="form-control" id="firstname">
+                    <input id="firstname" class="form-control" type="text" name="firstname" maxlength="56" required />
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-8 col-form-label frm">Last Name</label>
                 <div class="input-group col-sm-10">
                     <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
-                    <input type="lastname" class="form-control" id="lastname">
+                    <input id="lastname" class="form-control" type="text" name="lastname" maxlength="45" required />
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-8 col-form-label frm">Cellphone</label>
                 <div class="input-group col-sm-10">
                     <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-phone"></i></div>
-                    <input type="text" class="form-control" id="cellphone">
+                    <input id="cellphone" class="form-control" type="text" name="cellphone" maxlength="14" required />
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-8 col-form-label frm">Address</label>
                 <div class="input-group col-sm-10">
                     <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-map-marker"></i></div>
-                    <input type="text" class="form-control" id="address">
+                    <input id="address" class="form-control" type="text" name="address" maxlength="255" required />
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-8 col-form-label frm">Town</label>
                 <div class="input-group col-sm-10">
                     <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-location-arrow"></i></div>
-                    <input type="text" class="form-control" id="town">
+                    <input id="town" class="form-control" type="text" name="town" maxlength="45" required />
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-8 col-form-label frm">Postal Code</label>
                 <div class="input-group col-sm-10">
                     <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-map-marker"></i></div>
-                    <input type="text" class="form-control" id="postcode">
+                    <input id="postcode" class="form-control" type="text" name="postcode" maxlength="45" required />
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-8 col-form-label frm">Country</label>
                 <div class="input-group col-sm-10">
                     <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-globe"></i></div>
-                    <input type="text" class="form-control" id="country">
+                    <input id="country" class="form-control" type="text" name="country" maxlength="45" required />
                 </div>
-            </div>
+            </div> -->
             <div class="form-group row">                
-                <button id="subbut" type="submit" class="btn btn-primary col-sm-5">Submit</button>
+                <button id="subbut" type="submit" class="btn btn-primary col-sm-5" value="register_v2">Submit</button>
             </div>
         </div>
     </div>
+    </form>
     </div>
 {% endblock %}
 </body>

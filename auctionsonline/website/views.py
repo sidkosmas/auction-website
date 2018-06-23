@@ -2,11 +2,13 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 from website.forms import *
-from website.models import User
+from website.models import User, Product, Auction
+from datetime import datetime
 
 # Create your views here.
 def index(request):
-    return render(request, 'index.html')
+    auctions = Auction.objects.filter(time_ending__gte=datetime.now()).order_by('time_starting')    
+    return render(request, 'index.html', {'auctions': auctions})
 
 def register(request):
     return render(request, 'register.html')

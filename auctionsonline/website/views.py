@@ -73,11 +73,14 @@ def register_page(request):
             )
             user.save()
             print("Write form to database")
-            return render(request, 'index.html')
+            auctions = Auction.objects.filter(time_ending__gte=datetime.now()).order_by('time_starting')    
+            return render(request, 'index.html', {'auctions': auctions})
     form = RegistrationForm()
-    return render(request, 'index.html', {'form': form})
+    auctions = Auction.objects.filter(time_ending__gte=datetime.now()).order_by('time_starting')    
+    return render(request, 'index.html', {'form': form}, {'auctions': auctions})
 
 def login_page(request):
+    auctions = Auction.objects.filter(time_ending__gte=datetime.now()).order_by('time_starting')
     if request.method == 'POST':
         print("Post Request")
         form = LoginForm(request.POST)
@@ -87,15 +90,13 @@ def login_page(request):
             print(user)
             # call validation function from validation.py (password matching)
             request.session['username'] = user[0].username
-            return render(request, 'index.html')
-    return render(request, 'index.html')
+            return render(request, 'index.html', {'auctions': auctions})
+    return render(request, 'index.html', {'auctions': auctions})
 
 def logout_page(request):
     try:
         del request.session['username']
     except:
         pass
-    return render(request, 'website/index.html')
-
-def home_page(request):
-    return render(request, 'home.html')
+    auctions = Auction.objects.filter(time_ending__gte=datetime.now()).order_by('time_starting')
+    return render(request, 'index.html', {'auctions': auctions})

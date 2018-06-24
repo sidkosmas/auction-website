@@ -48,7 +48,7 @@ class Auction(models.Model):
 	def __str__(self):
 		return "ID:" + str(self.pk) + " PRODUCT_ID:" + str(self.product_id)
 
-class Wishlist(models.Model):
+class Watchlist(models.Model):
 	user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 	auction_id = models.ForeignKey(Auction, on_delete=models.CASCADE)
 	

@@ -31,7 +31,11 @@
                         <h4 class="card-title text-center">{{ auction.product_id.title }}</h4><hr>
                     </div>
                     <p class="card-text">{{ auction.product_id.description }}</p>
-                    <p class="card-text"><small class="text-muted">Auction starts in : {{ auction.time_starting|date:'d-m-Y H:i:s' }}</small></p>
+                    <p class="card-text"><small class="text-muted">Auction starts: {{ auction.time_starting|date:'d-m-Y H:i:s' }}</small></p>
+                    <div>
+                        <!-- WATCH BUTTON -->
+                        <button type="button" class="btn btn-outline-primary watch_button" onclick="location.href='/website/watchlist/{{auction.id}}'">Watch</button>
+                    </div>
                 </div>
             </div>
         </div>

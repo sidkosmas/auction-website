@@ -17,3 +17,6 @@ class LoginForm(forms.Form):
     username = forms.CharField(max_length=45)
     password = forms.CharField(max_length=45)
 
+class TopUpForm(forms.Form):
+    amount = forms.DecimalField(max_digits=6, decimal_places=2)
+

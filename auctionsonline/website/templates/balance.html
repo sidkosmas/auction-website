@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Auctions Online - Balance Page</title>
+    <style>
+        #subbut { margin-top: -15px; }
+        #upba { margin-top: 70px; }
+        #topupform {margin-bottom: 300px; }
+    </style>
+</head>
+<body>
+{% extends 'index.html' %}
+{% block body %}
+    <div id="upba">
+        <h2>Update your Balance</h2>
+        <hr>
+    </div>
+    
+    <form id="topupform" method="post" action="/website/balance/topup/">{% csrf_token %}
+        <div class="form-group">
+            <label for="sel1">Select an amount to top-up your balance:</label>
+            <select class="form-control" id="sel1" name="amount">
+                <option value="10.00">10€</option>
+                <option value="20.00">20€</option>
+                <option value="50.00">50€</option>
+            </select>
+            <br>
+        </div>
+        <button id="subbut" type="submit" class="btn btn-primary col-sm-12" value="topup">Top Up</button>
+    </form>
+{% endblock %}
+</body>
+</html>

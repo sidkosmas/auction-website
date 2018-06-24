@@ -234,8 +234,8 @@ c = Auction()
 d = Product.objects.filter(id=1)
 c.product_id = d[0]
 c.number_of_bids = 0
-c.time_starting = c.time_starting = timezone.now() + timedelta(hours=2)
-c.time_ending = c.time_starting = timezone.now() + timedelta(hours=2) + timedelta(minutes=5)
+c.time_starting = c.time_starting = timezone.now() + timedelta(hours=3)
+c.time_ending = c.time_starting = timezone.now() + timedelta(hours=3) + timedelta(minutes=5)
 c.save()
 
 c = Auction()

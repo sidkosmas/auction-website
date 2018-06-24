@@ -90,7 +90,7 @@ The ``models.py`` file must look like this : ::
 	time_starting = models.DateTimeField()
 	time_ending = models.DateTimeField()
 
- class Wishlist(models.Model):
+ class Watchlist(models.Model):
 	user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 	auction_id = models.ForeignKey(Auction, on_delete=models.CASCADE)
 

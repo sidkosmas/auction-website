@@ -6,6 +6,7 @@ def validate_login(username, password):
     if not user:
         return False
     passw = User.objects.filter(username=user[0].username, password=password)
-    if passw[0].password == password :
-        return True
+    if passw:
+        if passw[0].password == password :
+            return True
     return False

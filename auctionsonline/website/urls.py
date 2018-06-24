@@ -9,7 +9,8 @@ urlpatterns = [
 	path('logout/', views.logout_page, name='logout_view'),
 	path('register/', views.register, name='register'),
 	path('register/register_v2/', views.register_page, name='register_page'),
-    path('profile/',views.profile, name='profile'),
-    path('<str:category>/', views.filter_auctions, name='filter_auctions') # to fix
-
+    path('category/<str:category>/', views.filter_auctions, name='filter_auctions'),
+    path('watchlist/<int:auction_id>/', views.watchlist, name='watchlist'),
+    path('balance/', views.balance, name='balance'),
+    path('balance/topup/', views.topup, name='topup')
 ]

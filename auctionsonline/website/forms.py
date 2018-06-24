@@ -13,3 +13,7 @@ class RegistrationForm(forms.Form):
     postcode = forms.CharField(max_length=45)
     country = forms.CharField(max_length=45)
 
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=45)
+    password = forms.CharField(max_length=45)
+

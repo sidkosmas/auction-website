@@ -76,3 +76,26 @@ def register_page(request):
             return render(request, 'index.html')
     form = RegistrationForm()
     return render(request, 'index.html', {'form': form})
+
+def login_page(request):
+    if request.method == 'POST':
+        print("Post Request")
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            print("Valid Form")
+            user = User.objects.filter(username=form.cleaned_data['username'])
+            print(user)
+            # call validation function from validation.py (password matching)
+            request.session['username'] = user[0].username
+            return render(request, 'home.html')
+    return render(request, 'products.html')
+
+def logout_page(request):
+    try:
+        del request.session['username']
+    except:
+        pass
+    return render(request, 'index.html')
+
+def home_page(request):
+    return render(request, 'home.html')

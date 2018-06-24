@@ -13,14 +13,44 @@ def index(request):
 def register(request):
     return render(request, 'register.html')
 
-def login(request):
-    return render(request, 'login.html')
-
 def profile(request):
     return render(request, 'profile.html')
 
-def bid(request):
-    return render(request, 'bid.html')
+def filter_auctions(request, category):
+    auctions = Auction.objects.filter(time_ending__gte=datetime.now()).order_by('time_starting')    
+    
+    if category == "laptops":
+        lap_auctions = Auction.objects.filter(
+            time_ending__gte=datetime.now(), product_id__category="LAP"
+            ).order_by('time_starting')
+        
+        return render(request, 'index.html', {'auctions': lap_auctions})
+    elif category == "consoles":
+        con_auctions = Auction.objects.filter(
+            time_ending__gte=datetime.now(), product_id__category="CON"
+            ).order_by('time_starting')
+        
+        return render(request, 'index.html', {'auctions': con_auctions})
+    elif category == "games":
+        gam_auctions = Auction.objects.filter(
+            time_ending__gte=datetime.now(), product_id__category="GAM"
+            ).order_by('time_starting')
+        
+        return render(request, 'index.html', {'auctions': gam_auctions})
+    elif category == "gadgets":
+        gad_auctions = Auction.objects.filter(
+            time_ending__gte=datetime.now(), product_id__category="GAD"
+            ).order_by('time_starting')
+        
+        return render(request, 'index.html', {'auctions': gad_auctions})
+    elif category == "tvs":
+        tel_auctions = Auction.objects.filter(
+            time_ending__gte=datetime.now(), product_id__category="TEL"
+            ).order_by('time_starting')
+        
+        return render(request, 'index.html', {'auctions': tel_auctions})
+    
+    return render(request, 'index.html', {'auctions': auctions})
 
 def register_page(request):
     if request.method == 'POST':

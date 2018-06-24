@@ -1,0 +1,25 @@
+.navbar {
+    margin-left: 30px;
+    margin-right: 38px;
+    border-top: 1px solid #BEC4D0;
+    border-bottom: 1px solid #BEC4D0;
+}
+        
+.logosite {
+    height: 25%;
+    width: 25%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 80px;
+}
+        
+#aright {
+    left: 0;
+    margin-left: 30px;
+    margin-top: 20px;
+    position: absolute;
+}
+        
+#replacement {
+    margin-left: 160px;
+}

@@ -1,43 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-    	.container {
-    		margin-top: 20px;
-        }
-            
-        .row {
-            margin-top: 20px;
-        }
-    	
-    	.card-img-top {
-    		width: 800;
-    		height: 600;
-    		height: 15vw;
-    		object-fit: cover;
-    	}
-    		
-    	/* show 4 items per row */ 
-        .carousel-inner .active,
-        .carousel-inner .active + .carousel-item,
-        .carousel-inner .active + .carousel-item + .carousel-item,
-        .carousel-inner .active + .carousel-item + .carousel-item + .carousel-item,
-        .carousel-inner .active + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
-            display: block;
-        }
-
-    	.bid_now_button
-    	{
-    		width: 100%; 
-    		margin-top: 10px;
-    	}
-    	
-    	.watch_button
-    	{
-    		width: 100%; 
-    		margin-top: 5px;
-    	}
-    </style>
+    <link rel="stylesheet" type="text/css" href="/static/css/products.css">
 </head>
 <body>
 <div class="container-fluid">
@@ -48,12 +12,19 @@
             </div>
             {% endif %}
         <div class="carousel-inner row w-100 mx-auto">
-            <div class="carousel-item col-md-3 active">
+            {% if auctions|length == 1 %} <div class="carousel-item col-md-12 active">
+            {% elif auctions|length == 2 %} <div class="carousel-item col-md-6 active">
+            {% elif auctions|length == 3 %} <div class="carousel-item col-md-4 active">
+            {% else %} <div class="carousel-item col-md-3 active">
+            {% endif %}
         {% else %}
-        <div class="carousel-item col-md-3">
+            {% if auctions|length == 1 %} <div class="carousel-item col-md-12">
+            {% elif auctions|length == 2 %} <div class="carousel-item col-md-6">
+            {% elif auctions|length == 3 %} <div class="carousel-item col-md-4">
+            {% else %} <div class="carousel-item col-md-3">
+            {% endif %}
         {% endif %}
             <div class="card">
-            <!-- {{ auction.product_id.image }} -->
                 <img class="card-img-top img-fluid" src='/media/{{ auction.product_id.image }}' alt="Card image cap">
                 <div class="card-body">
                     <div id="item_name">

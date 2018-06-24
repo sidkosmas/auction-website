@@ -16,52 +16,21 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 
 	<!-- MODAL related - Login -->
-	<link rel="stylesheet" type="text/css" href="/static/css/custom.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/modal.css">
 	<!-- <link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed" rel="stylesheet"> -->
 
     <!-- ICON -->
     <link rel="icon" href="/static/images/icon.png">
 
-    <style>
-        body {
-          //  background-image: url("images/background.png");
-          //  background-repeat: no-repeat;
-          //  background-color: #7C8E9E;
-        }
-        
-        .navbar {
-            margin-left: 30px;
-            margin-right: 38px;
-			border-top: 1px solid #BEC4D0;
-			border-bottom: 1px solid #BEC4D0;
-        }
-        
-        .logosite {
-            height: 25%;
-            width: 25%;
-			margin-top: 20px;
-			margin-bottom: 20px;
-			margin-left: 80px;
-        }
-        
-        #aright {
-            left: 0;
-            margin-left: 30px;
-            margin-top: 20px;
-            position: absolute;
-        }
-        
-        #replacement {
-            margin-left: 160px;
-        }
-        
-    </style>
+    <!-- PAGE CSS -->
+    <link rel="stylesheet" type="text/css" href="/static/css/index.css">    
+    
 </head>
 
 <body>
 
 	<!-- Logo -->
-	<a href="index.html"><img src="/static/images/logosite.png" class="logosite" /></a>
+	<a href="{% url 'website:index' %}"><img src="/static/images/logosite.png" class="logosite" /></a>
 	
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -72,21 +41,22 @@
 
         <ul class="nav nav-pills">
             <li class="nav-item">
-                <a class="nav-link" href="#!">Laptops</a>
+                <a class="nav-link" href="laptops/">Laptops</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#!">Consoles</a>
+                <a class="nav-link" href="consoles/">Consoles</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#!">Games</a>
+                <a class="nav-link" href="games/">Games</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#!">Gadgets</a>
+                <a class="nav-link" href="gadgets/">Gadgets</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#!">TVs</a>
+                <a class="nav-link" href="tvs/">TVs</a>
             </li>
         </ul>
+        
         <ul id="right_navbar" class="navbar-nav ml-auto">
             <li class="nav-item open-modal">
                 <a id="login" href="#myModal" class="nav-link trigger-btn" data-toggle="modal">Login</a>

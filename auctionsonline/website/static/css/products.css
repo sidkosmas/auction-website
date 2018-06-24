@@ -1,0 +1,35 @@
+.container {
+    margin-top: 20px;
+}
+            
+.row {
+    margin-top: 20px;
+}
+        
+.card-img-top {
+    width: 800;
+    height: 600;
+    height: 15vw;
+    object-fit: cover;
+}
+            
+/* show 4 items per row */ 
+.carousel-inner .active,
+.carousel-inner .active + .carousel-item,
+.carousel-inner .active + .carousel-item + .carousel-item,
+.carousel-inner .active + .carousel-item + .carousel-item + .carousel-item,
+.carousel-inner .active + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
+    display: block;
+}
+
+.bid_now_button
+{
+    width: 100%; 
+    margin-top: 10px;
+}
+        
+.watch_button
+{
+    width: 100%; 
+    margin-top: 5px;
+}

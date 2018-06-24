@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Auctions Online - Welcome User</title>
+    <title>Auctions Online</title>
 </head>
 <body>
-{% if request.session.username %} <!-- required for pages we want user logged -->
 
     <li class="nav-item">
         <a class="nav-link" href="#!">Watchlist</a>
@@ -15,8 +14,6 @@
     <li class="nav-item">
         <a class="nav-link" href="logout/">Logout</a>
     </li>
-{% else %}
-<p>you are not logged</p>
-{% endif %}
+
 </body>
 </html>

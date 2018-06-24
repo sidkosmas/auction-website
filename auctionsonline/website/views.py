@@ -87,15 +87,15 @@ def login_page(request):
             print(user)
             # call validation function from validation.py (password matching)
             request.session['username'] = user[0].username
-            return render(request, 'home.html')
-    return render(request, 'products.html')
+            return render(request, 'index.html')
+    return render(request, 'index.html')
 
 def logout_page(request):
     try:
         del request.session['username']
     except:
         pass
-    return render(request, 'index.html')
+    return render(request, 'website/index.html')
 
 def home_page(request):
     return render(request, 'home.html')

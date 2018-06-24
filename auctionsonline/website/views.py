@@ -59,23 +59,26 @@ def register_page(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             print("Valid Form")
-            user = User(
-                username = form.cleaned_data['username'], 
-                password = form.cleaned_data['password1'],
-                email = form.cleaned_data['email'],
-                balance = 0.0,
-                firstname = form.cleaned_data['firstname'],
-                lastname = form.cleaned_data['lastname'],
-                cellphone = form.cleaned_data['cellphone'],
-                address = form.cleaned_data['address'],
-                town = form.cleaned_data['town'],
-                post_code = form.cleaned_data['postcode'],
-                country = form.cleaned_data['country'] 
-            )
-            user.save()
-            print("Write form to database")
-            auctions = Auction.objects.filter(time_ending__gte=datetime.now()).order_by('time_starting')    
-            return render(request, 'index.html', {'auctions': auctions})
+            is_valid = validate_registration(form.cleaned_data['username'], form.cleaned_data['password1'], form.cleaned_data['password2'], form.cleaned_data['email'])
+            print("validation check")
+            if is_valid :
+                user = User(
+                    username = form.cleaned_data['username'],
+                    password = form.cleaned_data['password1'],
+                    email = form.cleaned_data['email'],
+                    balance = 0.0,
+                    firstname = form.cleaned_data['firstname'],
+                    lastname = form.cleaned_data['lastname'],
+                    cellphone = form.cleaned_data['cellphone'],
+                    address = form.cleaned_data['address'],
+                    town = form.cleaned_data['town'],
+                    post_code = form.cleaned_data['postcode'],
+                    country = form.cleaned_data['country']
+                )
+                user.save()
+                print("Write form to database")
+                auctions = Auction.objects.filter(time_ending__gte=datetime.now()).order_by('time_starting')
+                return render(request, 'index.html', {'auctions': auctions})
     form = RegistrationForm()
     auctions = Auction.objects.filter(time_ending__gte=datetime.now()).order_by('time_starting')    
     return render(request, 'index.html', {'form': form}, {'auctions': auctions})

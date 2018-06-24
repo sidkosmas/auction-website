@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 from website.forms import *
+from website.validation import *
 from website.models import User, Product, Auction
 from datetime import datetime
 
@@ -86,11 +87,11 @@ def login_page(request):
         form = LoginForm(request.POST)
         if form.is_valid():
             print("Valid Form")
-            user = User.objects.filter(username=form.cleaned_data['username'])
-            print(user)
-            # call validation function from validation.py (password matching)
-            request.session['username'] = user[0].username
-            return render(request, 'index.html', {'auctions': auctions})
+            is_valid=validate_login(form.cleaned_data['username'], form.cleaned_data['password'])
+            if is_valid :
+
+                request.session['username'] = form.cleaned_data['username']
+                return render(request, 'index.html', {'auctions': auctions})
     return render(request, 'index.html', {'auctions': auctions})
 
 def logout_page(request):

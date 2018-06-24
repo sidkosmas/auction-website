@@ -6,6 +6,8 @@ from website.validation import *
 from website.models import User, Product, Auction, Watchlist
 from datetime import datetime
 
+from itertools import chain
+
 def index(request):
     auctions = Auction.objects.filter(time_ending__gte=datetime.now()).order_by('time_starting')
     
@@ -21,8 +23,36 @@ def index(request):
 def register(request):
     return render(request, 'register.html')
 
-def watchlist(request, auction_id):    
+def watchlist(request, auction_id):
+    try:
+        if request.session['username']:
+            user = User.objects.filter(username=request.session['username'])
+            auction = Auction.objects.filter(id=auction_id)
+            watchlist_item = Watchlist()
+            watchlist_item.auction_id = auction[0]
+            watchlist_item.user_id = user[0]
+            watchlist_item.save()
+            
+            return index(request)
+    except KeyError:
+        return index(request)
+     
     return index(request)
+
+def watchlist_page(request):
+    try:
+        if request.session['username']:
+            user = User.objects.filter(username=request.session['username'])
+            w = Watchlist.objects.filter(user_id=user[0])
+            
+            auctions = Auction.objects.none()
+            for item in w:
+                a = Auction.objects.filter(id=item.auction_id.id)
+                auctions = list(chain(auctions, a))
+            print(auctions)
+            return render(request, 'index.html', {'auctions': auctions, 'user': user[0]})
+    except KeyError:
+        return index(request)
 
 def balance(request):
     try:
@@ -43,7 +73,6 @@ def topup(request):
                     user = User.objects.get(username=request.session['username'])
                     user.balance += form.cleaned_data['amount']
                     user.save()
-                    print(user.balance)
             except KeyError:
                 return index(request)
     

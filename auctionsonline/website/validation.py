@@ -12,16 +12,15 @@ def validate_login(username, password):
     return False
 
 def validate_registration(username, password1, password2, email):
-    user = User.objects.filter(username=username)
-    if not user:
-        check = User.objects.filter(username=user[0].username, email=email)
-        if password1 is not password2 :
-            print("password confirm not compatible")
-            return False, problem
-        if check[0].email == email :
-            print("email already exists")
-            return False
-    else:
+    check_user = User.objects.filter(username=username)
+    if check_user == username :
         print("user already exists")
         return False
-    return False
+    if password1 != password2 :
+        print("password confirm not compatible")
+        return False
+    check_email = User.objects.filter(email=email)
+    if check_email == email :
+        print("email already exists")
+        return False
+    return True

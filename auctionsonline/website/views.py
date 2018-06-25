@@ -6,6 +6,7 @@ from website.validation import *
 from website.models import User, Product, Auction, Watchlist, Bid, Chat
 from datetime import datetime, timedelta
 from django.utils import timezone
+from itertools import chain
 
 def index(request):
     auctions = Auction.objects.filter(time_ending__gte=datetime.now()).order_by('time_starting')
@@ -13,7 +14,13 @@ def index(request):
     try:
         if request.session['username']:
             user = User.objects.filter(username=request.session['username'])
-            watchlist = Watchlist.objects.filter(user_id=user[0]).order_by('auction_id__time_starting')
+            
+            w = Watchlist.objects.filter(user_id=user[0])
+            watchlist = Auction.objects.none()
+            for item in w:
+                a = Auction.objects.filter(id=item.auction_id.id)
+                watchlist = list(chain(watchlist, a))
+            
             return render(request, 'index.html', {'auctions': auctions, 'user': user[0], 'watchlist': watchlist})
     except KeyError:
         return render(request, 'index.html', {'auctions': auctions})
@@ -55,7 +62,13 @@ def bid_page(request, auction_id):
             chat = Chat.objects.all().order_by('time_sent')
             stats.append(chat)
             
-            return render(request, 'bid.html', {'auction': auction[0], 'user': user[0], 'stats': stats})
+            w = Watchlist.objects.filter(user_id=user[0])
+            watchlist = Auction.objects.none()
+            for item in w:
+                a = Auction.objects.filter(id=item.auction_id.id)
+                watchlist = list(chain(watchlist, a))
+            
+            return render(request, 'bid.html', {'auction': auction[0], 'user': user[0], 'stats': stats, 'watchlist':watchlist})
     except KeyError:
         return index(request)
     
@@ -107,6 +120,7 @@ def raise_bid(request, auction_id):
                     auction.time_ending = timezone.now() + timedelta(minutes=5)
                     auction.save()
                 else:
+                    # FIX BIDDING ON ANOTHER ITEM WITH THE SAME USERNAME
                     current_winner = User.objects.filter(id=latest_bid[0].user_id.id)
                     if current_winner[0].id != user.id:
                         user.balance = float(user.balance) - 1.0
@@ -133,10 +147,15 @@ def watchlist(request, auction_id):
         if request.session['username']:
             user = User.objects.filter(username=request.session['username'])
             auction = Auction.objects.filter(id=auction_id)
-            watchlist_item = Watchlist()
-            watchlist_item.auction_id = auction[0]
-            watchlist_item.user_id = user[0]
-            watchlist_item.save()
+            
+            w = Watchlist.objects.filter(auction_id=auction_id)
+            if not w:
+                watchlist_item = Watchlist()
+                watchlist_item.auction_id = auction[0]
+                watchlist_item.user_id = user[0]
+                watchlist_item.save()
+            else:
+                w.delete()
             
             return index(request)
     except KeyError:
@@ -154,7 +173,7 @@ def watchlist_page(request):
             for item in w:
                 a = Auction.objects.filter(id=item.auction_id.id)
                 auctions = list(chain(auctions, a))
-            return render(request, 'index.html', {'auctions': auctions, 'user': user[0]})
+            return render(request, 'index.html', {'auctions': auctions, 'user': user[0], 'watchlist':auctions})
     except KeyError:
         return index(request)
 

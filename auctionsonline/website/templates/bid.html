@@ -87,7 +87,18 @@
             </div>
             {% endif %}
             <div>
-                <button type="button" id="w_button" class="btn btn-outline-primary">Watch</button>
+                <button type="button" id="w_button" class="btn btn-outline-primary watch_button" onclick="location.href='/website/watchlist/{{auction.id}}'">
+                        {% load pop_up %}
+                        {% if watchlist %}
+                            {% if watchlist|pop:auction.id%}
+                            Unwatch
+                            {% else %}
+                            Watch
+                            {% endif %}
+                        {% else %}
+                            Watch
+                        {% endif %}
+                        </button>
             </div>
         </div>
 

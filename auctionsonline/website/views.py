@@ -108,7 +108,7 @@ def raise_bid(request, auction_id):
         if request.session['username']:
             user = User.objects.get(username=request.session['username'])
             if user.balance > 0.0:
-                latest_bid = Bid.objects.all().order_by('-bid_time')
+                latest_bid = Bid.objects.filter(auction_id=auction.id).order_by('-bid_time')
                 if not latest_bid:
                     user.balance = float(user.balance) - 1.0
                     user.save()
@@ -120,7 +120,6 @@ def raise_bid(request, auction_id):
                     auction.time_ending = timezone.now() + timedelta(minutes=5)
                     auction.save()
                 else:
-                    # FIX BIDDING ON ANOTHER ITEM WITH THE SAME USERNAME
                     current_winner = User.objects.filter(id=latest_bid[0].user_id.id)
                     if current_winner[0].id != user.id:
                         user.balance = float(user.balance) - 1.0

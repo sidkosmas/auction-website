@@ -61,6 +61,7 @@ def register_page(request):
             print("Valid Form")
             is_valid = validate_registration(form.cleaned_data['username'], form.cleaned_data['password1'], form.cleaned_data['password2'], form.cleaned_data['email'])
             print("validation check")
+            print(is_valid)
             if is_valid :
                 user = User(
                     username = form.cleaned_data['username'],

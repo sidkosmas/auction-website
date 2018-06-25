@@ -4,9 +4,10 @@
     <link rel="stylesheet" type="text/css" href="/static/css/products.css">
 </head>
 <body>
+{% now "Y-m-d-H-i-s" as todays_date %}
 <div class="container-fluid">
     <div id="myCarousel" class="carousel slide" data-interval="false">
-        {% for auction in auctions %}
+        {% for auction in auctions %}        
         {% if forloop.counter0|divisibleby:'4' %}
             {% if forloop.counter0 != 0 %}
             </div>
@@ -32,9 +33,18 @@
                     </div>
                     <p class="card-text">{{ auction.product_id.description }}</p>
                     <p class="card-text"><small class="text-muted">Auction starts: {{ auction.time_starting|date:'d-m-Y H:i:s' }}</small></p>
+                    
+                    {% if todays_date > auction.time_starting|date:'Y-m-d-H-i-s' %}
+                    <div>
+                        <!-- BID NOW BUTTON -->
+                        <button type="button" class="btn btn-primary bid_now_button" onclick="location.href='/website/bid/{{auction.id}}'">Bid Now</button>
+                    </div>
+                    {% endif %}
                     <div>
                         <!-- WATCH BUTTON -->
-                        <button type="button" class="btn btn-outline-primary watch_button" onclick="location.href='/website/watchlist/{{auction.id}}'">Watch</button>
+                        <button type="button" class="btn btn-outline-primary watch_button" onclick="location.href='/website/watchlist/{{auction.id}}'">
+                        Watch
+                        </button>
                     </div>
                 </div>
             </div>

@@ -234,70 +234,70 @@ c = Auction()
 d = Product.objects.filter(id=1)
 c.product_id = d[0]
 c.number_of_bids = 0
-c.time_starting = c.time_starting = timezone.now() + timedelta(hours=3)
-c.time_ending = c.time_starting = timezone.now() + timedelta(hours=3) + timedelta(minutes=5)
+c.time_starting  = timezone.now() + timedelta(minutes=1)
+c.time_ending = timezone.now() + timedelta(minutes=6)
 c.save()
 
 c = Auction()
 d = Product.objects.filter(id=9)
 c.product_id = d[0]
 c.number_of_bids = 0
-c.time_starting = c.time_starting = timezone.now() + timedelta(hours=4)
-c.time_ending = c.time_starting = timezone.now() + timedelta(hours=4) + timedelta(minutes=5)
+c.time_starting = timezone.now() + timedelta(minutes=2)
+c.time_ending = timezone.now() + timedelta(minutes=7)
 c.save()
 
 c = Auction()
 d = Product.objects.filter(id=10)
 c.product_id = d[0]
 c.number_of_bids = 0
-c.time_starting = c.time_starting = timezone.now() + timedelta(hours=6)
-c.time_ending = c.time_starting = timezone.now() + timedelta(hours=6) + timedelta(minutes=5)
+c.time_starting = timezone.now() + timedelta(hours=1)
+c.time_ending  = timezone.now() + timedelta(hours=1) + timedelta(minutes=5)
 c.save()
 
 c = Auction()
 d = Product.objects.filter(id=5)
 c.product_id = d[0]
 c.number_of_bids = 0
-c.time_starting = c.time_starting = timezone.now() + timedelta(days=1)
-c.time_ending = c.time_starting = timezone.now() + timedelta(days=1) + timedelta(minutes=5)
+c.time_starting = timezone.now() + timedelta(days=1)
+c.time_ending = timezone.now() + timedelta(days=1) + timedelta(minutes=5)
 c.save()
 
 c = Auction()
 d = Product.objects.filter(id=12)
 c.product_id = d[0]
 c.number_of_bids = 0
-c.time_starting = c.time_starting = timezone.now() + timedelta(days=1) + timedelta(hours=2)
-c.time_ending = c.time_starting = timezone.now() + timedelta(days=1) + timedelta(hours=2) + timedelta(minutes=5)
+c.time_starting = timezone.now() + timedelta(days=1) + timedelta(hours=2)
+c.time_ending = timezone.now() + timedelta(days=1) + timedelta(hours=2) + timedelta(minutes=5)
 c.save()
 
 c = Auction()
 d = Product.objects.filter(id=14)
 c.product_id = d[0]
 c.number_of_bids = 0
-c.time_starting = c.time_starting = timezone.now() + timedelta(days=1) + timedelta(hours=4)
-c.time_ending = c.time_starting = timezone.now() + timedelta(days=1) + timedelta(hours=4) + timedelta(minutes=5)
+c.time_starting = timezone.now() + timedelta(days=1) + timedelta(hours=4)
+c.time_ending = timezone.now() + timedelta(days=1) + timedelta(hours=4) + timedelta(minutes=5)
 c.save()
 
 c = Auction()
 d = Product.objects.filter(id=18)
 c.product_id = d[0]
 c.number_of_bids = 0
-c.time_starting = c.time_starting = timezone.now() + timedelta(days=1) + timedelta(hours=6)
-c.time_ending = c.time_starting = timezone.now() + timedelta(days=1) + timedelta(hours=6) + timedelta(minutes=5)
+c.time_starting = timezone.now() + timedelta(days=1) + timedelta(hours=6)
+c.time_ending = timezone.now() + timedelta(days=1) + timedelta(hours=6) + timedelta(minutes=5)
 c.save()
 
 c = Auction()
 d = Product.objects.filter(id=19)
 c.product_id = d[0]
 c.number_of_bids = 0
-c.time_starting = c.time_starting = timezone.now() + timedelta(days=2)
-c.time_ending = c.time_starting = timezone.now() + timedelta(days=2) + timedelta(minutes=5)
+c.time_starting = timezone.now() + timedelta(days=2)
+c.time_ending = timezone.now() + timedelta(days=2) + timedelta(minutes=5)
 c.save()
 
 c = Auction()
 d = Product.objects.filter(id=4)
 c.product_id = d[0]
 c.number_of_bids = 0
-c.time_starting = c.time_starting = timezone.now() + timedelta(days=2) + timedelta(hours=2)
-c.time_ending = c.time_starting = timezone.now() + timedelta(days=2) + timedelta(hours=2) + timedelta(minutes=5)
+c.time_starting = timezone.now() + timedelta(days=2) + timedelta(hours=2)
+c.time_ending = timezone.now() + timedelta(days=2) + timedelta(hours=2) + timedelta(minutes=5)
 c.save()

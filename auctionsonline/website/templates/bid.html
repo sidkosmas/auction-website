@@ -55,8 +55,10 @@
     </style>
 </head>
 <body>
+{% extends 'index.html' %}
+{% block body %}
 <div id="bid-flexbox" class="d-flex flex-row">
-    <div class="p-2"><img id="preview_product" src="/static/images/products/console-01.png" /></div>
+    <div class="p-2"><img id="preview_product" src="/media/{{ auction.product_id.image }}" /></div>
     <div class="p-2">
 
         <div id="bidding" class="jumbotron">
@@ -64,20 +66,26 @@
             <table  class="table table-borderless">
                 <tbody>
                     <tr>
+                        {% if stats.2 %}
                         <td><small>Time left:</small></td>
-                        <td>8h 3m 25s</td>
+                        <td>{{ stats.0 }}</td>
+                        {% else %}
+                        <p>Auction Ended! The winner is : {{ stats.3 }}</p>
+                        {% endif %}
                     </tr>
                     <tr>
                         <td><small>Current bit:</small></td>
-                        <td><b>EU 100.00€</b></td>
-                        <td><small>[ 100 bids ]</small></td>
+                        <td><b>EU {{stats.1}}€</b></td>
+                        <td><small>[ {{auction.number_of_bids}} bids ]</small></td>
                     </tr>
                 </tbody>
             </table>
 			</div>
+			{% if stats.2 %}
             <div>
-                <button type="button" id="b_button" class="btn btn-primary">Bid</button>
+                <button type="button" id="b_button" class="btn btn-primary" onclick="location.href='/website/bid/{{auction.id}}/raise_bid'">Bid</button>
             </div>
+            {% endif %}
             <div>
                 <button type="button" id="w_button" class="btn btn-outline-primary">Watch</button>
             </div>
@@ -107,5 +115,6 @@
         <button id="post_button" type="button" class="btn btn-outline-primary">Post</button>
     </div>
 </div>
+{% endblock %}
 </body>
 </html>

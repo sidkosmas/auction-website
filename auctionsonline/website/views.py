@@ -3,22 +3,102 @@ from django.http import HttpResponse
 from django.template import loader
 from website.forms import *
 from website.validation import *
-from website.models import User, Product, Auction, Watchlist
-from datetime import datetime
-
-from itertools import chain
+from website.models import User, Product, Auction, Watchlist, Bid
+from datetime import datetime, timedelta
+from django.utils import timezone
 
 def index(request):
     auctions = Auction.objects.filter(time_ending__gte=datetime.now()).order_by('time_starting')
-    
+        
     try:
         if request.session['username']:
             user = User.objects.filter(username=request.session['username'])
-            return render(request, 'index.html', {'auctions': auctions, 'user': user[0]})
+            watchlist = Watchlist.objects.filter(user_id=user[0]).order_by('auction_id__time_starting')
+            return render(request, 'index.html', {'auctions': auctions, 'user': user[0], 'watchlist': watchlist})
     except KeyError:
         return render(request, 'index.html', {'auctions': auctions})
     
     return render(request, 'index.html', {'auctions': auctions})
+
+def bid_page(request, auction_id):    
+    try:
+        if request.session['username']:
+            auction = Auction.objects.filter(id=auction_id)
+            if auction[0].time_starting > timezone.now():
+                return index(request)
+            user = User.objects.filter(username=request.session['username'])
+            
+            stats = []
+            time_left = auction[0].time_ending - timezone.now()
+            days, seconds = time_left.days, time_left.seconds
+            hours = days * 24 + seconds // 3600
+            minutes = (seconds % 3600) // 60
+            seconds = seconds % 60
+            time_left = str(minutes) + "m " + str(seconds) + "s"
+            
+            stats.append(time_left)
+            current_cost = 0.20 + (auction[0].number_of_bids * 0.20)
+            current_cost = "%0.2f" % current_cost
+            stats.append(current_cost)
+            if days < 0:
+                stats.append(False)
+            else:
+                stats.append(True)
+                
+            latest_bid = Bid.objects.all().order_by('-bid_time')
+            if latest_bid:
+                winner = User.objects.filter(id=latest_bid[0].user_id.id)
+                stats.append(winner[0].username)
+            else:
+                stats.append(None)
+            
+            return render(request, 'bid.html', {'auction': auction[0], 'user': user[0], 'stats': stats})
+    except KeyError:
+        return index(request)
+    
+    return index(request)
+
+def raise_bid(request, auction_id):
+    auction = Auction.objects.get(id=auction_id)
+    if auction.time_ending < timezone.now():
+        return bid_page(request, auction_id)
+    elif auction.time_starting > timezone.now():
+        return index(request)
+        
+    bid = Bid()
+    try:
+        if request.session['username']:
+            user = User.objects.get(username=request.session['username'])
+            if user.balance > 0.0:
+                latest_bid = Bid.objects.all().order_by('-bid_time')
+                if not latest_bid:
+                    user.balance = float(user.balance) - 1.0
+                    user.save()
+                    bid.user_id = user
+                    bid.auction_id = auction
+                    bid.bid_time = timezone.now()
+                    bid.save()
+                    auction.number_of_bids += 1
+                    auction.time_ending = timezone.now() + timedelta(minutes=5)
+                    auction.save()
+                else:
+                    current_winner = User.objects.filter(id=latest_bid[0].user_id.id)
+                    if current_winner[0].id != user.id:
+                        user.balance = float(user.balance) - 1.0
+                        user.save()
+                        bid.user_id = user
+                        bid.auction_id = auction
+                        bid.bid_time = timezone.now()
+                        bid.save()
+                        auction.number_of_bids += 1
+                        auction.time_ending = timezone.now() + timedelta(minutes=5)
+                        auction.save()
+                
+            return bid_page(request, auction_id)
+    except KeyError:
+        return bid_page(request, auction_id)
+    
+    return bid_page(request, auction_id)
 
 def register(request):
     return render(request, 'register.html')
@@ -49,7 +129,6 @@ def watchlist_page(request):
             for item in w:
                 a = Auction.objects.filter(id=item.auction_id.id)
                 auctions = list(chain(auctions, a))
-            print(auctions)
             return render(request, 'index.html', {'auctions': auctions, 'user': user[0]})
     except KeyError:
         return index(request)
@@ -134,10 +213,8 @@ def register_page(request):
 
 def login_page(request):
     if request.method == 'POST':
-        print("Post Request")
         form = LoginForm(request.POST)
         if form.is_valid():
-            print("Valid Form")
             is_valid=validate_login(form.cleaned_data['username'], form.cleaned_data['password'])
             if is_valid :
                 request.session['username'] = form.cleaned_data['username']

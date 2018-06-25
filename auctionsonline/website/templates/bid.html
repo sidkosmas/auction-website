@@ -92,27 +92,19 @@
         </div>
 
         <div id="comments">
-            kosmiso : I will buy dat... :D
-            <br> nikos : Yeah you
-            <br> kosmiso : I will buy dat... :D
-            <br> nikos : Yeah you
-            <br> kosmiso : I will buy dat... :D
-            <br> nikos : Yeah you
-            <br> kosmiso : I will buy dat... :D
-            <br> nikos : Yeah you
-            <br> kosmiso : I will buy dat... :D
-            <br> nikos : Yeah you
-            <br> kosmiso : I will buy dat... :D
-            <br> nikos : Yeah you wish!
-            <br>
+            {% for c in stats.4 %}
+            {{c.user_id.username}} : {{c.message}}<br>
+            {% endfor %}
         </div>
 
+        <form method="post" action="/website/bid/{{auction.id}}/comment/">{% csrf_token %}
         <div class="form-group">
             <label for="comment">Comment:</label>
-            <textarea class="form-control" rows="2" id="comment"></textarea>
+            <textarea class="form-control" rows="2" id="comment" name="comment"></textarea>
         </div>
 
-        <button id="post_button" type="button" class="btn btn-outline-primary">Post</button>
+        <button id="post_button" type="submit" class="btn btn-outline-primary">Post</button>
+        </form>
     </div>
 </div>
 {% endblock %}

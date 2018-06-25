@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 from website.forms import *
 from website.validation import *
-from website.models import User, Product, Auction, Watchlist, Bid
+from website.models import User, Product, Auction, Watchlist, Bid, Chat
 from datetime import datetime, timedelta
 from django.utils import timezone
 
@@ -52,10 +52,35 @@ def bid_page(request, auction_id):
             else:
                 stats.append(None)
             
+            chat = Chat.objects.all().order_by('time_sent')
+            stats.append(chat)
+            
             return render(request, 'bid.html', {'auction': auction[0], 'user': user[0], 'stats': stats})
     except KeyError:
         return index(request)
     
+    return index(request)
+
+def comment(request, auction_id):
+    try:
+        if request.session['username']:
+            user = User.objects.filter(username=request.session['username'])
+            auction = Auction.objects.filter(id=auction_id)
+            if request.method == 'POST':
+                form = CommentForm(request.POST)
+                if form.is_valid():
+                    msg = Chat()
+                    msg.user_id = user[0]
+                    msg.auction_id = auction[0]
+                    msg.message = form.cleaned_data['comment']
+                    msg.time_sent = timezone.now()
+                    msg.save()
+                    return bid_page(request, auction_id)
+            
+            return index(request)
+    except KeyError:
+        return index(request)
+
     return index(request)
 
 def raise_bid(request, auction_id):

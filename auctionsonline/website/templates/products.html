@@ -7,7 +7,7 @@
 {% now "Y-m-d-H-i-s" as todays_date %}
 <div class="container-fluid">
     <div id="myCarousel" class="carousel slide" data-interval="false">
-    {% load pop_up %}
+    {% load custom_tags %}
         {% for auction in auctions %}
         {% if forloop.counter0|divisibleby:'4' %}
             {% if forloop.counter0 != 0 %}
@@ -55,7 +55,7 @@
                         <!-- WATCH BUTTON -->
                         <button type="button" class="btn btn-outline-primary watch_button" onclick="location.href='/website/watchlist/{{auction.id}}'">
                         {% if watchlist %}
-                            {% if watchlist|pop:auction.id%}
+                            {% if watchlist|search:auction.id%}
                             Unwatch
                             {% else %}
                             Watch

@@ -11,7 +11,9 @@ def search(value, id):
 
     Parameters
     ----------
-    arg1 : int
+    value : list
+        A list with key values
+    id : int
         The key we are searching
     
     Returns
@@ -36,7 +38,7 @@ def time_left(value):
 
     Parameters
     ----------
-    arg1 : DateTime
+    value : DateTime
         The deadline
     
     Returns
@@ -61,7 +63,7 @@ def current_price(value):
 
     Parameters
     ----------
-    arg1 : IntegerField
+    value : IntegerField
         Number of Bids.
     
     Returns

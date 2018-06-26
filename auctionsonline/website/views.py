@@ -1,14 +1,25 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.template import loader
-from website.forms import *
-from website.validation import *
-from website.models import User, Product, Auction, Watchlist, Bid, Chat
-from datetime import datetime, timedelta
+
 from django.utils import timezone
+from datetime import datetime, timedelta
 from itertools import chain
 
+from website.forms import *
+from website.models import User, Product, Auction, Watchlist, Bid, Chat
+
+from website.validation import validate_login, validate_registration
+from website.transactions import increase_bid, remaining_time
+
 def index(request):
+    """
+    The main page of the website
+    
+    Returns
+    -------
+    HTTPResponse
+        The index page with the current and future auctions.
+    """
     auctions = Auction.objects.filter(time_ending__gte=datetime.now()).order_by('time_starting')
         
     try:
@@ -21,37 +32,54 @@ def index(request):
                 a = Auction.objects.filter(id=item.auction_id.id)
                 watchlist = list(chain(watchlist, a))
             
-            return render(request, 'index.html', {'auctions': auctions, 'user': user[0], 'watchlist': watchlist})
+            return render(request, 'index.html', 
+                {'auctions': auctions, 'user': user[0], 'watchlist': watchlist})
     except KeyError:
         return render(request, 'index.html', {'auctions': auctions})
     
     return render(request, 'index.html', {'auctions': auctions})
 
-def bid_page(request, auction_id):    
+def bid_page(request, auction_id):
+    """
+    Returns the bid page for the
+    selected auction.
+    
+    Parametes
+    ---------
+    auction_id : class 'int'
+    
+    Returns
+    -------
+    HTTPResponse
+        Return the bidding page for the selected auction.
+    Function : index(request)
+        If the user is not logged in.
+    """
+    print(type(auction_id))
     try:
+        # if not logged in return to the index page.
         if request.session['username']:
+            # If the auction hasn't started return to the index page.
             auction = Auction.objects.filter(id=auction_id)
             if auction[0].time_starting > timezone.now():
                 return index(request)
             user = User.objects.filter(username=request.session['username'])
             
             stats = []
-            time_left = auction[0].time_ending - timezone.now()
-            days, seconds = time_left.days, time_left.seconds
-            hours = days * 24 + seconds // 3600
-            minutes = (seconds % 3600) // 60
-            seconds = seconds % 60
-            time_left = str(minutes) + "m " + str(seconds) + "s"
+            time_left, expired = remaining_time(auction[0])
+            stats.append(time_left) # First element in stats list
             
-            stats.append(time_left)
             current_cost = 0.20 + (auction[0].number_of_bids * 0.20)
             current_cost = "%0.2f" % current_cost
             stats.append(current_cost)
-            if days < 0:
+            
+            # Second element in stats list
+            if expired < 0: # if auction ended append false.
                 stats.append(False)
             else:
                 stats.append(True)
                 
+            # Third element in stats list
             latest_bid = Bid.objects.all().order_by('-bid_time')
             if latest_bid:
                 winner = User.objects.filter(id=latest_bid[0].user_id.id)
@@ -59,22 +87,40 @@ def bid_page(request, auction_id):
             else:
                 stats.append(None)
             
+            # Fourth element in stats list
             chat = Chat.objects.all().order_by('time_sent')
             stats.append(chat)
             
+            # Getting user's watchlist.
             w = Watchlist.objects.filter(user_id=user[0])
             watchlist = Auction.objects.none()
             for item in w:
                 a = Auction.objects.filter(id=item.auction_id.id)
                 watchlist = list(chain(watchlist, a))
             
-            return render(request, 'bid.html', {'auction': auction[0], 'user': user[0], 'stats': stats, 'watchlist':watchlist})
+            return render(request, 'bid.html',
+            {
+                'auction': auction[0], 
+                'user': user[0], 
+                'stats': stats, 
+                'watchlist':watchlist
+            })
     except KeyError:
         return index(request)
     
     return index(request)
 
 def comment(request, auction_id):
+    """
+    Comment on an auction.
+    
+    Returns
+    -------
+    Function : bid_page(request, auction_id)
+        Return the 
+    Function : index(request)
+        If the user is not logged in.
+    """
     try:
         if request.session['username']:
             user = User.objects.filter(username=request.session['username'])
@@ -97,51 +143,64 @@ def comment(request, auction_id):
     return index(request)
 
 def raise_bid(request, auction_id):
+    """
+    Increases the bid of the selected auction
+    and returns to the bidding page.
+    
+    Parametes
+    ---------
+    auction_id : class 'int'
+    
+    Returns
+    -------
+    Function : bid_page(request, auction_id)
+        Return the bidding page for the selected auction.
+    Function : index(request)
+        If the user is not logged in.
+    """
     auction = Auction.objects.get(id=auction_id)
     if auction.time_ending < timezone.now():
         return bid_page(request, auction_id)
     elif auction.time_starting > timezone.now():
         return index(request)
         
-    bid = Bid()
     try:
         if request.session['username']:
             user = User.objects.get(username=request.session['username'])
             if user.balance > 0.0:
                 latest_bid = Bid.objects.filter(auction_id=auction.id).order_by('-bid_time')
                 if not latest_bid:
-                    user.balance = float(user.balance) - 1.0
-                    user.save()
-                    bid.user_id = user
-                    bid.auction_id = auction
-                    bid.bid_time = timezone.now()
-                    bid.save()
-                    auction.number_of_bids += 1
-                    auction.time_ending = timezone.now() + timedelta(minutes=5)
-                    auction.save()
+                    increase_bid(user, auction)
                 else:
                     current_winner = User.objects.filter(id=latest_bid[0].user_id.id)
                     if current_winner[0].id != user.id:
-                        user.balance = float(user.balance) - 1.0
-                        user.save()
-                        bid.user_id = user
-                        bid.auction_id = auction
-                        bid.bid_time = timezone.now()
-                        bid.save()
-                        auction.number_of_bids += 1
-                        auction.time_ending = timezone.now() + timedelta(minutes=5)
-                        auction.save()
+                        increase_bid(user, auction)
                 
             return bid_page(request, auction_id)
     except KeyError:
-        return bid_page(request, auction_id)
+        return index(request)
     
     return bid_page(request, auction_id)
 
-def register(request):
+def register_page(request):
+    """
+    Returns the registration page.
+    
+    Returns
+    -------
+    HTTPResponse
+        The registration page.
+    """
     return render(request, 'register.html')
 
 def watchlist(request, auction_id):
+    """
+    Adds the auction to the user's watchlist.
+    
+    Returns
+    -------
+    Function : index(request)
+    """
     try:
         if request.session['username']:
             user = User.objects.filter(username=request.session['username'])
@@ -163,6 +222,18 @@ def watchlist(request, auction_id):
     return index(request)
 
 def watchlist_page(request):
+    """
+    Disguises the index page to look
+    like a page with the auctions the
+    user is watching.
+    
+    Returns
+    -------
+    HTTPResponse
+        The index page with auctions the user is watching.
+    Function : index(request)
+        If the user is not logged in.
+    """
     try:
         if request.session['username']:
             user = User.objects.filter(username=request.session['username'])
@@ -172,11 +243,28 @@ def watchlist_page(request):
             for item in w:
                 a = Auction.objects.filter(id=item.auction_id.id)
                 auctions = list(chain(auctions, a))
-            return render(request, 'index.html', {'auctions': auctions, 'user': user[0], 'watchlist':auctions})
+            return render(request, 'index.html', {
+                'auctions': auctions, 
+                'user': user[0], 
+                'watchlist':auctions
+            })
     except KeyError:
         return index(request)
 
 def balance(request):
+    """
+    If the user is logged in returns
+    a HTTPResponse with the page that
+    allows the user to update his or her balance.
+    
+    Returns
+    -------
+    HTTPResponse
+        The page with the user information 
+        that updates the account's balance.
+    Function : index(request)
+        If the user is not logged in.
+    """
     try:
         if request.session['username']:
             user = User.objects.filter(username=request.session['username'])
@@ -187,6 +275,14 @@ def balance(request):
     return index(request)
 
 def topup(request):
+    """
+    Adds credit to user's current balance.
+    
+    Returns
+    -------
+    Function : index(request)
+        If the user is not logged in.
+    """
     if request.method == 'POST':
         form = TopUpForm(request.POST)
         if form.is_valid():
@@ -200,7 +296,21 @@ def topup(request):
     
     return index(request)
 
-def filter_auctions(request, category):    
+def filter_auctions(request, category):
+    """
+    Searches current and future auctions
+    that belong in a category.
+    
+    Parameters
+    ----------
+    category : class 'str'
+        The category name.
+    
+    Returns
+    -------
+    Function : index(request)
+         If the user is not logged in.
+    """
     if category == "laptops":
         lap_auctions = Auction.objects.filter(
             time_ending__gte=datetime.now(), product_id__category="LAP"
@@ -234,38 +344,74 @@ def filter_auctions(request, category):
     
     return index(request)
 
-def register_page(request):
+def register(request):
+    """
+    Registration POST request.
+        
+    Returns
+    -------
+    Function
+        Index page request    
+    """
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
-            user = User(
-                username = form.cleaned_data['username'], 
-                password = form.cleaned_data['password1'],
-                email = form.cleaned_data['email'],
-                balance = 0.0,
-                firstname = form.cleaned_data['firstname'],
-                lastname = form.cleaned_data['lastname'],
-                cellphone = form.cleaned_data['cellphone'],
-                address = form.cleaned_data['address'],
-                town = form.cleaned_data['town'],
-                post_code = form.cleaned_data['postcode'],
-                country = form.cleaned_data['country'] 
+            is_valid = validate_registration(
+                form.cleaned_data['username'], 
+                form.cleaned_data['password1'], 
+                form.cleaned_data['password2'], 
+                form.cleaned_data['email']
             )
-            user.save()
+            if is_valid:
+                # Create an User object with the form parameters.
+                user = User(
+                    username = form.cleaned_data['username'], 
+                    password = form.cleaned_data['password1'],
+                    email = form.cleaned_data['email'],
+                    balance = 0.0,
+                    firstname = form.cleaned_data['firstname'],
+                    lastname = form.cleaned_data['lastname'],
+                    cellphone = form.cleaned_data['cellphone'],
+                    address = form.cleaned_data['address'],
+                    town = form.cleaned_data['town'],
+                    post_code = form.cleaned_data['postcode'],
+                    country = form.cleaned_data['country'] 
+                )
+                user.save() # Save the object to the database.
     return index(request)
 
 def login_page(request):
+    """
+    Login POST request.
+        
+    Returns
+    -------
+    Function
+        Index page request    
+    """
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
-            is_valid=validate_login(form.cleaned_data['username'], form.cleaned_data['password'])
+            is_valid = validate_login(
+                form.cleaned_data['username'], 
+                form.cleaned_data['password']
+            )
             if is_valid :
+                # Creates a session with 'form.username' as key.
                 request.session['username'] = form.cleaned_data['username']
     return index(request)
 
 def logout_page(request):
+    """
+    Deletes the session.
+    
+    Returns
+    -------
+    Function
+        Index page request
+    """
     try:
         del request.session['username']
     except:
-        pass
+        pass # if there is no session pass
     return index(request)

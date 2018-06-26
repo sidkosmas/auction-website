@@ -1,4 +1,8 @@
-# on django shell $ exec(open('website/populate.py').read())
+# on django shell 
+#    $ exec(open('website/populate.py').read())
+
+# This script populates the database with products, users, and auctions.
+# The first auction starts one minute after executing this script.
 
 from django.core.files import File
 from website.models import *

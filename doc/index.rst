@@ -34,6 +34,21 @@ Indices and tables
 	:maxdepth: 2
 	
 	4.model-layer
+
+.. toctree::
+    :maxdepth: 2
+    
+    4.1.admin
+	
+.. toctree::
+    :maxdepth: 2
+    
+    5.view-layer
+
+.. toctree::
+    :maxdepth: 2
+    
+    6.template-layer
 	
 .. toctree::
 	:maxdepth: 2

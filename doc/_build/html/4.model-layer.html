@@ -29,7 +29,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Sphinx cheatsheet" href="0.cheatsheet.html" />
+    <link rel="next" title="The View Layer" href="5.view-layer.html" />
     <link rel="prev" title="Creating the project" href="3.create-project.html" /> 
 
   
@@ -94,9 +94,14 @@
 <li class="toctree-l2"><a class="reference internal" href="#field-types">Field types</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#indexes">Indexes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#building-our-own-models">Building our own models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-our-models-to-the-database">Adding our models to the database</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#shell">Shell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#retrieving-specific-objects-with-filters">Retrieving specific objects with filters</a></li>
 </ul>
 </li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="5.view-layer.html">The View Layer</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="0.cheatsheet.html">Sphinx cheatsheet</a></li>
@@ -258,7 +263,7 @@
        <span class="n">time_starting</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">()</span>
        <span class="n">time_ending</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">()</span>
 
-<span class="k">class</span> <span class="nc">Wishlist</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">Watchlist</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
        <span class="n">user_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>
        <span class="n">auction_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Auction</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>
 
@@ -274,6 +279,163 @@
        <span class="n">time_sent</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="adding-our-models-to-the-database">
+<h2>Adding our models to the database<a class="headerlink" href="#adding-our-models-to-the-database" title="Permalink to this headline">¶</a></h2>
+<p>Now that we’ve written our models we have to migrate them into our database.
+We can achive this by running the following commands:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">python</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">makemigrations</span> <span class="n">website</span>
+</pre></div>
+</div>
+<p>You should see something similar to the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Migrations</span> <span class="k">for</span> <span class="s1">&#39;website&#39;</span><span class="p">:</span>
+<span class="n">website</span>\<span class="n">migrations</span>\<span class="mi">0001</span><span class="n">_initial</span><span class="o">.</span><span class="n">py</span>
+  <span class="o">-</span> <span class="n">Create</span> <span class="n">model</span> <span class="n">Auction</span>
+  <span class="o">-</span> <span class="n">Create</span> <span class="n">model</span> <span class="n">Bid</span>
+  <span class="o">-</span> <span class="n">Create</span> <span class="n">model</span> <span class="n">Chat</span>
+  <span class="o">-</span> <span class="n">Create</span> <span class="n">model</span> <span class="n">Product</span>
+  <span class="o">-</span> <span class="n">Create</span> <span class="n">model</span> <span class="n">User</span>
+  <span class="o">-</span> <span class="n">Create</span> <span class="n">model</span> <span class="n">Watchlist</span>
+  <span class="o">-</span> <span class="n">Add</span> <span class="n">field</span> <span class="n">user_id</span> <span class="n">to</span> <span class="n">chat</span>
+  <span class="o">-</span> <span class="n">Add</span> <span class="n">field</span> <span class="n">user_id</span> <span class="n">to</span> <span class="n">bid</span>
+  <span class="o">-</span> <span class="n">Add</span> <span class="n">field</span> <span class="n">product_id</span> <span class="n">to</span> <span class="n">auction</span>
+</pre></div>
+</div>
+<p>By running makemigrations, you’re telling Django that you’ve made some changes
+to your models (in this case, you’ve made new ones) and that you’d like the
+changes to be stored as a migration. Migrations are how Django stores changes
+to your models (and thus your database schema) - they’re just files on disk.
+You can read the migration for your new model if you like it’s the file
+website/migrations/0001_initial.py.</p>
+<p>There’s a command that will run the migrations for you and manage your database
+schema automatically - that’s called migrate, and we’ll come to it in a moment -
+but first, let’s see what SQL that migration would run. The sqlmigrate command
+takes migration names and returns their SQL:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">python</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">sqlmigrate</span> <span class="n">website</span> <span class="mi">0001</span>
+</pre></div>
+</div>
+<p>You should see something similar to the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">BEGIN</span><span class="p">;</span>
+<span class="o">--</span>
+<span class="o">--</span> <span class="n">Create</span> <span class="n">model</span> <span class="n">Auction</span>
+<span class="o">--</span>
+<span class="n">CREATE</span> <span class="n">TABLE</span> <span class="s2">&quot;website_auction&quot;</span> <span class="p">(</span><span class="s2">&quot;id&quot;</span> <span class="n">integer</span> <span class="n">NOT</span> <span class="n">NULL</span> <span class="n">PRIMARY</span> <span class="n">KEY</span> <span class="n">AUTOINCREMENT</span><span class="p">,</span> <span class="s2">&quot;number_o</span>
+<span class="n">f_bids</span><span class="s2">&quot; integer NOT NULL, &quot;</span><span class="n">time_starting</span><span class="s2">&quot; datetime NOT NULL, &quot;</span><span class="n">time_ending</span><span class="s2">&quot; datetime NOT NU</span>
+<span class="n">LL</span><span class="p">);</span>
+<span class="o">--</span>
+<span class="o">--</span> <span class="n">Create</span> <span class="n">model</span> <span class="n">Bid</span>
+<span class="o">--</span>
+<span class="n">CREATE</span> <span class="n">TABLE</span> <span class="s2">&quot;website_bid&quot;</span> <span class="p">(</span><span class="s2">&quot;id&quot;</span> <span class="n">integer</span> <span class="n">NOT</span> <span class="n">NULL</span> <span class="n">PRIMARY</span> <span class="n">KEY</span> <span class="n">AUTOINCREMENT</span><span class="p">,</span> <span class="s2">&quot;bid_time&quot;</span> <span class="n">da</span>
+<span class="n">tetime</span> <span class="n">NOT</span> <span class="n">NULL</span><span class="p">,</span> <span class="s2">&quot;auction_id_id&quot;</span> <span class="n">integer</span> <span class="n">NOT</span> <span class="n">NULL</span> <span class="n">REFERENCES</span> <span class="s2">&quot;website_auction&quot;</span> <span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">)</span> <span class="n">DEFE</span>
+<span class="n">RRABLE</span> <span class="n">INITIALLY</span> <span class="n">DEFERRED</span><span class="p">);</span>
+<span class="o">--</span>
+<span class="o">--</span> <span class="n">Create</span> <span class="n">model</span> <span class="n">Chat</span>
+<span class="o">--</span>
+<span class="n">CREATE</span> <span class="n">TABLE</span> <span class="s2">&quot;website_chat&quot;</span> <span class="p">(</span><span class="s2">&quot;id&quot;</span> <span class="n">integer</span> <span class="n">NOT</span> <span class="n">NULL</span> <span class="n">PRIMARY</span> <span class="n">KEY</span> <span class="n">AUTOINCREMENT</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span> <span class="n">te</span>
+<span class="n">xt</span> <span class="n">NOT</span> <span class="n">NULL</span><span class="p">,</span> <span class="s2">&quot;time_sent&quot;</span> <span class="n">datetime</span> <span class="n">NOT</span> <span class="n">NULL</span><span class="p">,</span> <span class="s2">&quot;auction_id_id&quot;</span> <span class="n">integer</span> <span class="n">NOT</span> <span class="n">NULL</span> <span class="n">REFERENCES</span> <span class="s2">&quot;w</span>
+<span class="n">ebsite_auction</span><span class="s2">&quot; (&quot;</span><span class="nb">id</span><span class="s2">&quot;) DEFERRABLE INITIALLY DEFERRED);</span>
+<span class="o">--</span>
+<span class="o">--</span> <span class="n">Create</span> <span class="n">model</span> <span class="n">Product</span>
+<span class="o">--</span>
+<span class="n">CREATE</span> <span class="n">TABLE</span> <span class="s2">&quot;website_product&quot;</span> <span class="p">(</span><span class="s2">&quot;id&quot;</span> <span class="n">integer</span> <span class="n">NOT</span> <span class="n">NULL</span> <span class="n">PRIMARY</span> <span class="n">KEY</span> <span class="n">AUTOINCREMENT</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span> <span class="n">v</span>
+<span class="n">archar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span> <span class="n">NOT</span> <span class="n">NULL</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="n">NOT</span> <span class="n">NULL</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span> <span class="n">NOT</span> <span class="n">NULL</span><span class="p">,</span>
+<span class="s2">&quot;quantity&quot;</span> <span class="n">integer</span> <span class="n">NOT</span> <span class="n">NULL</span><span class="p">,</span> <span class="s2">&quot;category&quot;</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="n">NOT</span> <span class="n">NULL</span><span class="p">,</span> <span class="s2">&quot;date_posted&quot;</span> <span class="n">datetime</span> <span class="n">NOT</span> <span class="n">NU</span>
+<span class="n">LL</span><span class="p">);</span>
+<span class="o">--</span>
+<span class="o">--</span> <span class="n">Create</span> <span class="n">model</span> <span class="n">User</span>
+<span class="o">--</span>
+<span class="n">CREATE</span> <span class="n">TABLE</span> <span class="s2">&quot;website_user&quot;</span> <span class="p">(</span><span class="s2">&quot;id&quot;</span> <span class="n">integer</span> <span class="n">NOT</span> <span class="n">NULL</span> <span class="n">PRIMARY</span> <span class="n">KEY</span> <span class="n">AUTOINCREMENT</span><span class="p">,</span> <span class="s2">&quot;username&quot;</span> <span class="n">v</span>
+<span class="n">archar</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span> <span class="n">NOT</span> <span class="n">NULL</span><span class="p">,</span> <span class="s2">&quot;password&quot;</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span> <span class="n">NOT</span> <span class="n">NULL</span><span class="p">,</span> <span class="s2">&quot;email&quot;</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">254</span><span class="p">)</span> <span class="n">NOT</span> <span class="n">NULL</span><span class="p">,</span> <span class="s2">&quot;bala</span>
+<span class="n">nce</span><span class="s2">&quot; decimal NOT NULL, &quot;</span><span class="n">firstname</span><span class="s2">&quot; varchar(56) NOT NULL, &quot;</span><span class="n">lastname</span><span class="s2">&quot; varchar(45) NOT NULL,</span>
+<span class="s2">&quot;cellphone&quot;</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">14</span><span class="p">)</span> <span class="n">NOT</span> <span class="n">NULL</span><span class="p">,</span> <span class="s2">&quot;address&quot;</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span> <span class="n">NOT</span> <span class="n">NULL</span><span class="p">,</span> <span class="s2">&quot;town&quot;</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span> <span class="n">NOT</span>
+<span class="n">NULL</span><span class="p">,</span> <span class="s2">&quot;post_code&quot;</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span> <span class="n">NOT</span> <span class="n">NULL</span><span class="p">,</span> <span class="s2">&quot;country&quot;</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span> <span class="n">NOT</span> <span class="n">NULL</span><span class="p">);</span>
+<span class="o">--</span>
+<span class="o">--</span> <span class="n">Create</span> <span class="n">model</span> <span class="n">Watchlist</span>
+<span class="o">--</span>
+<span class="n">CREATE</span> <span class="n">TABLE</span> <span class="s2">&quot;website_watchlist&quot;</span> <span class="p">(</span><span class="s2">&quot;id&quot;</span> <span class="n">integer</span> <span class="n">NOT</span> <span class="n">NULL</span> <span class="n">PRIMARY</span> <span class="n">KEY</span> <span class="n">AUTOINCREMENT</span><span class="p">,</span> <span class="s2">&quot;auctio</span>
+<span class="n">n_id_id</span><span class="s2">&quot; integer NOT NULL REFERENCES &quot;</span><span class="n">website_auction</span><span class="s2">&quot; (&quot;</span><span class="nb">id</span><span class="s2">&quot;) DEFERRABLE INITIALLY DEFERRE</span>
+<span class="n">D</span><span class="p">,</span> <span class="s2">&quot;user_id_id&quot;</span> <span class="n">integer</span> <span class="n">NOT</span> <span class="n">NULL</span> <span class="n">REFERENCES</span> <span class="s2">&quot;website_user&quot;</span> <span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">)</span> <span class="n">DEFERRABLE</span> <span class="n">INITIALLY</span> <span class="n">DEF</span>
+<span class="n">ERRED</span><span class="p">);</span>
+<span class="o">--</span>
+<span class="o">--</span> <span class="n">Add</span> <span class="n">field</span> <span class="n">user_id</span> <span class="n">to</span> <span class="n">chat</span>
+<span class="o">--</span>
+<span class="n">ALTER</span> <span class="n">TABLE</span> <span class="s2">&quot;website_chat&quot;</span> <span class="n">RENAME</span> <span class="n">TO</span> <span class="s2">&quot;website_chat__old&quot;</span><span class="p">;</span>
+<span class="n">CREATE</span> <span class="n">TABLE</span> <span class="s2">&quot;website_chat&quot;</span> <span class="p">(</span><span class="s2">&quot;id&quot;</span> <span class="n">integer</span> <span class="n">NOT</span> <span class="n">NULL</span> <span class="n">PRIMARY</span> <span class="n">KEY</span> <span class="n">AUTOINCREMENT</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span> <span class="n">te</span>
+<span class="n">xt</span> <span class="n">NOT</span> <span class="n">NULL</span><span class="p">,</span> <span class="s2">&quot;time_sent&quot;</span> <span class="n">datetime</span> <span class="n">NOT</span> <span class="n">NULL</span><span class="p">,</span> <span class="s2">&quot;auction_id_id&quot;</span> <span class="n">integer</span> <span class="n">NOT</span> <span class="n">NULL</span> <span class="n">REFERENCES</span> <span class="s2">&quot;w</span>
+<span class="n">ebsite_auction</span><span class="s2">&quot; (&quot;</span><span class="nb">id</span><span class="s2">&quot;) DEFERRABLE INITIALLY DEFERRED, &quot;</span><span class="n">user_id_id</span><span class="s2">&quot; integer NOT NULL REFERE</span>
+<span class="n">NCES</span> <span class="s2">&quot;website_user&quot;</span> <span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">)</span> <span class="n">DEFERRABLE</span> <span class="n">INITIALLY</span> <span class="n">DEFERRED</span><span class="p">);</span>
+<span class="n">INSERT</span> <span class="n">INTO</span> <span class="s2">&quot;website_chat&quot;</span> <span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">,</span> <span class="s2">&quot;time_sent&quot;</span><span class="p">,</span> <span class="s2">&quot;auction_id_id&quot;</span><span class="p">,</span> <span class="s2">&quot;user_id_id&quot;</span><span class="p">)</span> <span class="n">S</span>
+<span class="n">ELECT</span> <span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">,</span> <span class="s2">&quot;time_sent&quot;</span><span class="p">,</span> <span class="s2">&quot;auction_id_id&quot;</span><span class="p">,</span> <span class="n">NULL</span> <span class="n">FROM</span> <span class="s2">&quot;website_chat__old&quot;</span><span class="p">;</span>
+<span class="n">DROP</span> <span class="n">TABLE</span> <span class="s2">&quot;website_chat__old&quot;</span><span class="p">;</span>
+<span class="n">CREATE</span> <span class="n">INDEX</span> <span class="s2">&quot;website_bid_auction_id_id_8a24134d&quot;</span> <span class="n">ON</span> <span class="s2">&quot;website_bid&quot;</span> <span class="p">(</span><span class="s2">&quot;auction_id_id&quot;</span><span class="p">);</span>
+<span class="n">CREATE</span> <span class="n">INDEX</span> <span class="s2">&quot;website_watchlist_auction_id_id_1ce8deb1&quot;</span> <span class="n">ON</span> <span class="s2">&quot;website_watchlist&quot;</span> <span class="p">(</span><span class="s2">&quot;auction_i</span>
+<span class="n">d_id</span><span class="s2">&quot;);</span>
+<span class="n">CREATE</span> <span class="n">INDEX</span> <span class="s2">&quot;website_watchlist_user_id_id_517566fa&quot;</span> <span class="n">ON</span> <span class="s2">&quot;website_watchlist&quot;</span> <span class="p">(</span><span class="s2">&quot;user_id_id&quot;</span><span class="p">)</span>
+<span class="p">;</span>
+<span class="n">CREATE</span> <span class="n">INDEX</span> <span class="s2">&quot;website_chat_auction_id_id_17d789bb&quot;</span> <span class="n">ON</span> <span class="s2">&quot;website_chat&quot;</span> <span class="p">(</span><span class="s2">&quot;auction_id_id&quot;</span><span class="p">);</span>
+<span class="n">CREATE</span> <span class="n">INDEX</span> <span class="s2">&quot;website_chat_user_id_id_66161742&quot;</span> <span class="n">ON</span> <span class="s2">&quot;website_chat&quot;</span> <span class="p">(</span><span class="s2">&quot;user_id_id&quot;</span><span class="p">);</span>
+<span class="o">--</span>
+<span class="o">--</span> <span class="n">Add</span> <span class="n">field</span> <span class="n">user_id</span> <span class="n">to</span> <span class="n">bid</span>
+<span class="o">--</span>
+<span class="n">ALTER</span> <span class="n">TABLE</span> <span class="s2">&quot;website_bid&quot;</span> <span class="n">RENAME</span> <span class="n">TO</span> <span class="s2">&quot;website_bid__old&quot;</span><span class="p">;</span>
+<span class="n">CREATE</span> <span class="n">TABLE</span> <span class="s2">&quot;website_bid&quot;</span> <span class="p">(</span><span class="s2">&quot;id&quot;</span> <span class="n">integer</span> <span class="n">NOT</span> <span class="n">NULL</span> <span class="n">PRIMARY</span> <span class="n">KEY</span> <span class="n">AUTOINCREMENT</span><span class="p">,</span> <span class="s2">&quot;bid_time&quot;</span> <span class="n">da</span>
+<span class="n">tetime</span> <span class="n">NOT</span> <span class="n">NULL</span><span class="p">,</span> <span class="s2">&quot;auction_id_id&quot;</span> <span class="n">integer</span> <span class="n">NOT</span> <span class="n">NULL</span> <span class="n">REFERENCES</span> <span class="s2">&quot;website_auction&quot;</span> <span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">)</span> <span class="n">DEFE</span>
+<span class="n">RRABLE</span> <span class="n">INITIALLY</span> <span class="n">DEFERRED</span><span class="p">,</span> <span class="s2">&quot;user_id_id&quot;</span> <span class="n">integer</span> <span class="n">NOT</span> <span class="n">NULL</span> <span class="n">REFERENCES</span> <span class="s2">&quot;website_user&quot;</span> <span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">)</span>
+<span class="n">DEFERRABLE</span> <span class="n">INITIALLY</span> <span class="n">DEFERRED</span><span class="p">);</span>
+<span class="n">INSERT</span> <span class="n">INTO</span> <span class="s2">&quot;website_bid&quot;</span> <span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;bid_time&quot;</span><span class="p">,</span> <span class="s2">&quot;auction_id_id&quot;</span><span class="p">,</span> <span class="s2">&quot;user_id_id&quot;</span><span class="p">)</span> <span class="n">SELECT</span> <span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;</span>
+<span class="n">bid_time</span><span class="s2">&quot;, &quot;</span><span class="n">auction_id_id</span><span class="s2">&quot;, NULL FROM &quot;</span><span class="n">website_bid__old</span><span class="s2">&quot;;</span>
+<span class="n">DROP</span> <span class="n">TABLE</span> <span class="s2">&quot;website_bid__old&quot;</span><span class="p">;</span>
+<span class="n">CREATE</span> <span class="n">INDEX</span> <span class="s2">&quot;website_bid_auction_id_id_8a24134d&quot;</span> <span class="n">ON</span> <span class="s2">&quot;website_bid&quot;</span> <span class="p">(</span><span class="s2">&quot;auction_id_id&quot;</span><span class="p">);</span>
+<span class="n">CREATE</span> <span class="n">INDEX</span> <span class="s2">&quot;website_bid_user_id_id_7cc0c150&quot;</span> <span class="n">ON</span> <span class="s2">&quot;website_bid&quot;</span> <span class="p">(</span><span class="s2">&quot;user_id_id&quot;</span><span class="p">);</span>
+<span class="o">--</span>
+<span class="o">--</span> <span class="n">Add</span> <span class="n">field</span> <span class="n">product_id</span> <span class="n">to</span> <span class="n">auction</span>
+<span class="o">--</span>
+<span class="n">ALTER</span> <span class="n">TABLE</span> <span class="s2">&quot;website_auction&quot;</span> <span class="n">RENAME</span> <span class="n">TO</span> <span class="s2">&quot;website_auction__old&quot;</span><span class="p">;</span>
+<span class="n">CREATE</span> <span class="n">TABLE</span> <span class="s2">&quot;website_auction&quot;</span> <span class="p">(</span><span class="s2">&quot;id&quot;</span> <span class="n">integer</span> <span class="n">NOT</span> <span class="n">NULL</span> <span class="n">PRIMARY</span> <span class="n">KEY</span> <span class="n">AUTOINCREMENT</span><span class="p">,</span> <span class="s2">&quot;number_o</span>
+<span class="n">f_bids</span><span class="s2">&quot; integer NOT NULL, &quot;</span><span class="n">time_starting</span><span class="s2">&quot; datetime NOT NULL, &quot;</span><span class="n">time_ending</span><span class="s2">&quot; datetime NOT NU</span>
+<span class="n">LL</span><span class="p">,</span> <span class="s2">&quot;product_id_id&quot;</span> <span class="n">integer</span> <span class="n">NOT</span> <span class="n">NULL</span> <span class="n">REFERENCES</span> <span class="s2">&quot;website_product&quot;</span> <span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">)</span> <span class="n">DEFERRABLE</span> <span class="n">INITIA</span>
+<span class="n">LLY</span> <span class="n">DEFERRED</span><span class="p">);</span>
+<span class="n">INSERT</span> <span class="n">INTO</span> <span class="s2">&quot;website_auction&quot;</span> <span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;number_of_bids&quot;</span><span class="p">,</span> <span class="s2">&quot;time_starting&quot;</span><span class="p">,</span> <span class="s2">&quot;time_ending&quot;</span><span class="p">,</span> <span class="s2">&quot;pr</span>
+<span class="n">oduct_id_id</span><span class="s2">&quot;) SELECT &quot;</span><span class="nb">id</span><span class="s2">&quot;, &quot;</span><span class="n">number_of_bids</span><span class="s2">&quot;, &quot;</span><span class="n">time_starting</span><span class="s2">&quot;, &quot;</span><span class="n">time_ending</span><span class="s2">&quot;, NULL FROM &quot;</span><span class="n">we</span>
+<span class="n">bsite_auction__old</span><span class="s2">&quot;;</span>
+<span class="n">DROP</span> <span class="n">TABLE</span> <span class="s2">&quot;website_auction__old&quot;</span><span class="p">;</span>
+<span class="n">CREATE</span> <span class="n">INDEX</span> <span class="s2">&quot;website_auction_product_id_id_b4d0e759&quot;</span> <span class="n">ON</span> <span class="s2">&quot;website_auction&quot;</span> <span class="p">(</span><span class="s2">&quot;product_id_id</span>
+<span class="s2">&quot;);</span>
+<span class="n">COMMIT</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Now, run migrate again to create those model tables in your database:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">python</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">migrate</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>we should see the following: ::</dt>
+<dd><dl class="first last docutils">
+<dt>Operations to perform:</dt>
+<dd>Apply all migrations: admin, auth, contenttypes, sessions, website</dd>
+<dt>Running migrations:</dt>
+<dd>Applying contenttypes.0001_initial… OK
+Applying auth.0001_initial… OK
+Applying admin.0001_initial… OK
+Applying admin.0002_logentry_remove_auto_add… OK
+Applying contenttypes.0002_remove_content_type_name… OK
+Applying auth.0002_alter_permission_name_max_length… OK
+Applying auth.0003_alter_user_email_max_length… OK
+Applying auth.0004_alter_user_username_opts… OK
+Applying auth.0005_alter_user_last_login_null… OK
+Applying auth.0006_require_contenttypes_0002… OK
+Applying auth.0007_alter_validators_add_error_messages… OK
+Applying auth.0008_alter_user_username_max_length… OK
+Applying auth.0009_alter_user_last_name_max_length… OK
+Applying sessions.0001_initial… OK
+Applying website.0001_initial… OK</dd>
+</dl>
+</dd>
+</dl>
+<p>The migrate command takes all the migrations that haven’t been applied
+(Django tracks which ones are applied using a special table in your database
+called django_migrations) and runs them against your database - essentially,
+synchronizing the changes you made to your models with the schema in the database.</p>
 </div>
 <div class="section" id="shell">
 <h2>Shell<a class="headerlink" href="#shell" title="Permalink to this headline">¶</a></h2>
@@ -329,6 +491,41 @@ To invoke the Python shell, use this command:</p>
 <p>The <strong>User.objects.all()</strong> is displaying all the User records in
 the database showing the username and the email of each user.</p>
 </div>
+<div class="section" id="retrieving-specific-objects-with-filters">
+<h2>Retrieving specific objects with filters<a class="headerlink" href="#retrieving-specific-objects-with-filters" title="Permalink to this headline">¶</a></h2>
+<p>The QuerySet returned by <em>all()</em> describes all objects in the database table.
+Usually, though, you’ll need to select only a subset of the complete set of objects.
+To create such a subset, you refine the initial QuerySet, adding filter conditions.</p>
+<p>One way to do this is with the:</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>filter(<a href="#id1"><span class="problematic" id="id2">**</span></a>kwargs)</dt>
+<dd>Returns a new QuerySet containing objects that match the given lookup parameters.</dd>
+</dl>
+</li>
+</ul>
+<p>for example if we want to find the user with <a class="reference external" href="mailto:'dummy1&#37;&#52;&#48;mail&#46;com">‘dummy1<span>&#64;</span>mail<span>&#46;</span>com</a>’ we will use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">email</span><span class="o">=</span><span class="s1">&#39;dummy1@mail.com&#39;</span><span class="p">)</span>
+<span class="go">&lt;QuerySet [&lt;User: ID:1 dummy1 dummy1@mail.com&gt;]&gt;</span>
+</pre></div>
+</div>
+<p>One more thing we will need from the QuerySet API are the field lookups.
+Field lookups are how you specify the meat of an SQL WHERE clause.
+They’re specified as keyword arguments to the QuerySet methods</p>
+<p>for example if we want to find users with id greater than 5 we will use the
+<em>gt</em> field lookup :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="go">&gt;&gt;&gt;User.objects.filter(id__gt=5)</span>
+<span class="go">&lt;QuerySet []&gt;</span>
+</pre></div>
+</div>
+<p>Some usefull field lookups are:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">gt</span></code> : Greater than.</li>
+<li><code class="docutils literal notranslate"><span class="pre">lt</span></code> : Less than</li>
+<li><code class="docutils literal notranslate"><span class="pre">gte</span></code> : Greater than or equal to.</li>
+<li><code class="docutils literal notranslate"><span class="pre">lte</span></code> : Less than or equal to.</li>
+</ul>
+</div>
 </div>
 
 
@@ -339,7 +536,7 @@ the database showing the username and the email of each user.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="0.cheatsheet.html" class="btn btn-neutral float-right" title="Sphinx cheatsheet" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="5.view-layer.html" class="btn btn-neutral float-right" title="The View Layer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="3.create-project.html" class="btn btn-neutral" title="Creating the project" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

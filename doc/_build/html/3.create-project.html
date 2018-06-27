@@ -101,6 +101,9 @@
 <li class="toctree-l1"><a class="reference internal" href="4.model-layer.html">The Model Layer</a></li>
 </ul>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="5.view-layer.html">The View Layer</a></li>
+</ul>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="0.cheatsheet.html">Sphinx cheatsheet</a></li>
 </ul>
 
@@ -266,7 +269,23 @@ command :</p>
 <li><code class="docutils literal notranslate"><span class="pre">tests.py</span></code> :</li>
 <li><code class="docutils literal notranslate"><span class="pre">views.py</span></code> : A set of functions that take a web request and return a web response. This response can be the HTML contents of a Web page, or a redirect, or a 404 error, or an XML document, or an image, etc.</li>
 </ul>
-<p>Now that we created both the project and the app we are ready to move forward to the next chapter where we will create the database for the website.</p>
+<p>The next step is to include the app in our project, we need to add a reference
+to its configuration class in the INSTALLED_APPS setting.
+Edit the auctionsonline/settings.py file and add
+that dotted path to the INSTALLED_APPS setting. It’ll look like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+   <span class="s1">&#39;website&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;django.contrib.admin&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;django.contrib.auth&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;django.contrib.contenttypes&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;django.contrib.sessions&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;django.contrib.messages&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;django.contrib.staticfiles&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>Now that Django knows to include the website app we are ready to move forward
+to the next chapter where we will create the database for the website.</p>
 </div>
 </div>
 </div>

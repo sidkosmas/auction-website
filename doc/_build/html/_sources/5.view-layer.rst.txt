@@ -1,0 +1,62 @@
+The View Layer
+++++++++++++++
+
+"Django has the concept of “views” to encapsulate 
+the logic responsible for processing a user’s request and for returning the response."
+
+To begin, in the primary directory of your project (for us the "auctionsonline"), 
+there is a python file called "urls.py". In order to be able to connect the urls 
+we will later create for our website, we need to include them to the specific file,
+as well as the appropriate libraries. Open urls.py and edit it: ::
+        
+ from django.contrib import admin
+ from django.urls import path, include
+
+ urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('website/', include('website.urls'))
+ ]
+
+
+Now going to create a "urls.py" file on our app directory ("website"), we should now 
+be able to create the paths for our website pages. We need to import the views from the "website" directory
+so as to connect our path with the appropriate "response", which we will later create. ::
+
+ from . import views
+ from django.urls import path
+
+ app_name = 'website'
+
+ urlpatterns = [
+    path('', views.index, name='index'),
+ ]
+
+After all our paths are created, we go to the "views.py" file in the same directory, so as to
+connect the user request with the appropriate html response. ::
+
+ from django.shortcuts import render
+
+ # Create your views here.
+ def index(request):
+    return render(request, 'index.html')
+
+So now if we type to our browser "127.0.0.1:8000/website/" we request 
+from the server the index.html file. Depending the url the equivalent
+view is called.
+
+render()
+--------
+
+*render(request, template_name, context=None, content_type=None, status=None, using=None)[source]*
+
+Combines a given template with a given context dictionary and returns an 
+HttpResponse object with that rendered text. Django does not provide a 
+shortcut function which returns a TemplateResponse because the constructor 
+of TemplateResponse offers the same level of convenience as render().
+
+Required arguments:
+
+*request - The request object used to generate this response.
+
+*template_name - The full name of a template to use or sequence of template names. If a sequence is given, the first template that exists will be used. See the template loading documentation for more information on how templates are found.
+

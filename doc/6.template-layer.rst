@@ -1,0 +1,179 @@
+The Template Layer
+++++++++++++++++++
+
+"The template layer provides a designer-friendly syntax 
+for rendering the information to be presented to the user."
+
+Django has a built in function to search by default for html files and templates 
+in a directory named "templates", so we create one in the app directory, and we store all
+the html files for the project ::
+
+ website/
+    templates/
+        balance.html
+        bid.html
+        home.html
+        index.html
+        products.html
+        register.html
+    admin.py
+    apps.py
+    models.py
+    tests.py
+    urls.py
+    views.py
+
+Whenever we want to inject ,in a specific location, a specific file or function, 
+action or url, we can use specific django formats :
+
+Variables
+---------
+
+A variable outputs a value from the context, which is a dict-like object mapping keys to values.
+
+Variables are surrounded by **{{** and **}}** like this:
+
+My name is **{{ user.name }}**
+
+Tags
+----
+
+Tags provide arbitrary logic in the rendering process.
+
+This definition is deliberately vague. For example, a tag can output content, serve as a control structure e.g. an “if” statement or a “for” loop, grab content from a database, or even enable access to other template tags.
+
+Tags are surrounded by **{%** and **%}** like this:
+
+**{% extends "base_template.html" %}** : indicates that the specific template/part of code extends another template/part of code.
+
+**{% include "some_template.html" %}** : indicates that in the specific part of the code, another template/code will be included.
+
+**{% block label %}**
+    ...code or **{% include ...%}**...
+**{% endblock %}** : we use this format to enclose parts of the code we want to be replaced or included, when a specific request/event is triggered.
+
+**{% if 'statement' %}**
+    ...code...
+**{% elif %}**
+    ...code...
+**{% else %}** 
+    ...code...
+**{% endif %}** : if/else if/else statement
+
+**{% for ... %}**
+    ...code...
+**{% endfor %}** : for loop
+
+**{% url 'website:index' %}** : page redirect (views name)
+
+Static files
+------------
+
+Websites generally need to serve additional files such as images, 
+JavaScript, or CSS. In Django, we refer to these files as “static files”.
+
+Create a new directory called 'static' in the app directory ::
+
+ website/
+    migrations/
+    templates/
+    static/
+        css/ <- Here we save the css files
+        images/ <- here the images
+
+Now that we added the static files we also have to make a directory for the
+file the admin uploads (for creating auctions, the item picture).
+
+Open the settings.py and add the following lines to the end. ::
+
+ MEDIA_URL = '/media/'
+ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+also open the urls.py and edit the code so it will look like this: ::
+
+ urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('website/', include('website.urls'))
+ ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+Tag Filters
+-----------
+
+Filters the contents of the block through one or more filters. 
+Multiple filters can be specified with pipes and filters can have arguments, 
+just as in variable syntax. ::
+
+ {% if messages|length >= 100 %}
+   You have lots of messages today!
+ {% endif %}
+ 
+the length filter returns the length of the value. This works for both strings and lists.
+There are many filters in the Django documentation, however there are occasions where
+we have to calculate something more complex than the given filters. Django gives us
+the ability to create custom filters.
+
+Creating custom filters
+-----------------------
+
+To create custom filters we have to create a directory called 'templatetags' in
+the our app and inside it we will create two files.
+
+* __init__.py
+
+* custom_tags.py : Here we will define filters we will use on our templates
+
+The custom_tags.py will look like this: ::
+
+    from django import template
+    from ..models import User
+    from django.utils import timezone
+    
+    register = template.Library()
+    
+    @register.filter(name='search')
+    def search(value, id):
+        """
+        Linear search of a list
+    
+        Parameters
+        ----------
+        value : list
+            A list with key values
+        id : int
+            The key we are searching
+        
+        Returns
+        ------
+        boolean
+            True if the key is found, False otherwise.
+        """
+        for v in value:
+            if v.id == id:
+                return True
+        
+        return False
+    
+    @register.filter(name="time_left")
+    def time_left(value):
+        t = value - timezone.now()
+        days, seconds = t.days, t.seconds
+        hours = days * 24 + seconds // 3600
+        minutes = (seconds % 3600) // 60
+        seconds = seconds % 60
+        st = str(minutes) + "m " + str(seconds) + "s"
+        return st
+    
+    @register.filter(name="current_price")
+    def current_price(value):
+        current_cost = 0.20 + (value.number_of_bids * 0.20)
+        current_cost = "%0.2f" % current_cost
+        return current_cost
+
+We just created three new filters
+
+* search : searches a list for a key
+
+* time_left : string representation of the auction's time left
+
+* current_price : the current price of the auction item based on the number of bids

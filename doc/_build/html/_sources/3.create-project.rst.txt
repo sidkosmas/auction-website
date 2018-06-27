@@ -112,4 +112,20 @@ This files are:
 
 * ``views.py`` : A set of functions that take a web request and return a web response. This response can be the HTML contents of a Web page, or a redirect, or a 404 error, or an XML document, or an image, etc.
 
-Now that we created both the project and the app we are ready to move forward to the next chapter where we will create the database for the website.
+The next step is to include the app in our project, we need to add a reference 
+to its configuration class in the INSTALLED_APPS setting. 
+Edit the auctionsonline/settings.py file and add 
+that dotted path to the INSTALLED_APPS setting. It’ll look like this: ::
+
+ INSTALLED_APPS = [
+    'website',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+ ]
+
+Now that Django knows to include the website app we are ready to move forward 
+to the next chapter where we will create the database for the website.

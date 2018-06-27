@@ -49,6 +49,11 @@ Indices and tables
     :maxdepth: 2
     
     6.template-layer
+
+.. toctree::
+    :maxdepth: 2
+    
+    7.forms
 	
 .. toctree::
 	:maxdepth: 2

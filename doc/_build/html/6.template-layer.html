@@ -29,7 +29,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Sphinx cheatsheet" href="0.cheatsheet.html" />
+    <link rel="next" title="&lt;no title&gt;" href="7.forms.html" />
     <link rel="prev" title="The View Layer" href="5.view-layer.html" /> 
 
   
@@ -104,6 +104,13 @@
 <li class="toctree-l2"><a class="reference internal" href="#static-files">Static files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#tag-filters">Tag Filters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#creating-custom-filters">Creating custom filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-the-project-s-templates">Creating the project’s templates</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-index-template">The Index Template</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-product-template">The Product Template</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-bid-template">The Bid Template</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-resister-template">The Resister Template</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -231,6 +238,7 @@ action or url, we can use specific django formats :</p>
 </dl>
 <p><strong>{% endfor %}</strong> : for loop</p>
 <p><strong>{% url ‘website:index’ %}</strong> : page redirect (views name)</p>
+<p><strong>{% now “Y-m-d-H-i-s” as todays_date %}</strong> : declares a new variable that holds the current date/time.</p>
 </div>
 <div class="section" id="static-files">
 <h2>Static files<a class="headerlink" href="#static-files" title="Permalink to this headline">¶</a></h2>
@@ -292,21 +300,6 @@ the our app and inside it we will create two files.</p>
 
 <span class="nd">@register</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;search&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Linear search of a list</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    value : list</span>
-<span class="sd">        A list with key values</span>
-<span class="sd">    id : int</span>
-<span class="sd">        The key we are searching</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    ------</span>
-<span class="sd">    boolean</span>
-<span class="sd">        True if the key is found, False otherwise.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="nb">id</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
@@ -331,11 +324,107 @@ the our app and inside it we will create two files.</p>
 </pre></div>
 </div>
 <p>We just created three new filters</p>
-<ul class="simple">
-<li>search : searches a list for a key</li>
-<li>time_left : string representation of the auction’s time left</li>
-<li>current_price : the current price of the auction item based on the number of bids</li>
+<ul>
+<li><p class="first">search : searches a list for a key</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="k">if</span> <span class="n">watchlist</span><span class="o">|</span><span class="n">search</span><span class="p">:</span><span class="n">auction</span><span class="o">.</span><span class="n">id</span><span class="o">%</span><span class="p">}</span> <span class="n">watchlist</span> <span class="n">contains</span> <span class="n">auction_id</span> <span class="p">{</span><span class="o">%</span> <span class="n">endif</span> <span class="o">%</span><span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">time_left : string representation of the auction’s time left</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span> <span class="n">auction</span><span class="o">.</span><span class="n">time_ending</span><span class="o">|</span><span class="n">time_left</span> <span class="p">}}</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">current_price : the current price of the auction item based on the number of bids</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>€{{ auction|current_price }}
+</pre></div>
+</div>
+</li>
 </ul>
+</div>
+<div class="section" id="creating-the-project-s-templates">
+<h2>Creating the project’s templates<a class="headerlink" href="#creating-the-project-s-templates" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="the-index-template">
+<h3>The Index Template<a class="headerlink" href="#the-index-template" title="Permalink to this headline">¶</a></h3>
+<p>For our project, the primary template is “index.html”, which contains all the
+necessary code for our site’s appearance. The index page contains a navbar with its components,
+a dummy ad, a footer, a login modal and finally the “replacement-container” which
+is altered depending the content we want to show.</p>
+<p>The replacement-container :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;p-2&quot;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">div</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;replacement&quot;</span><span class="o">&gt;</span>
+        <span class="p">{</span><span class="o">%</span> <span class="n">block</span> <span class="n">body</span> <span class="o">%</span><span class="p">}</span>
+        <span class="p">{</span><span class="o">%</span> <span class="n">include</span> <span class="s2">&quot;products.html&quot;</span> <span class="o">%</span><span class="p">}</span>
+        <span class="p">{</span><span class="o">%</span> <span class="n">endblock</span> <span class="o">%</span><span class="p">}</span>
+    <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Whenever we are requesting the index page by default the replacement container
+loads the contents of the products.html</p>
+<p>If the user is currently logged in</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;!-- If the user is logged in then include the home.html contents in the navbar --&gt;
+{% if request.session.username %}
+    {% include &quot;home.html&quot; %}
+&lt;!-- else add login and register links --&gt;
+{% else %}
+    &lt;li class=&quot;nav-item open-modal&quot;&gt;
+        &lt;a id=&quot;login&quot; href=&quot;#myModal&quot; class=&quot;nav-link trigger-btn&quot; data-toggle=&quot;modal&quot;&gt;Login&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;nav-item&quot;&gt;
+        &lt;a id=&quot;signup&quot; class=&quot;nav-link&quot; href=&quot;/website/register/&quot;&gt;Sign up&lt;/a&gt;
+    &lt;/li&gt;
+{% endif %}
+</pre></div>
+</div>
+<p>After the footer we have a modal with a login form. We will talk on how to
+handle forms in the next section.</p>
+</div>
+<div class="section" id="the-product-template">
+<h3>The Product Template<a class="headerlink" href="#the-product-template" title="Permalink to this headline">¶</a></h3>
+<p>The products template contains the auctions that are still in process and all
+the other auctions that will start in the future.</p>
+<p>In this template we are going to need the custom tags we made</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="n">load</span> <span class="n">custom_tags</span> <span class="o">%</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>So the product template will display all the auctions by running a loop on
+the auction QuerySet. Each auction will be displayed as a card and depending
+the starting_time and ending time the auction will be active (we will be able to bid)
+or inactive (just showing the starting_time). Also one more QuerySet is given as
+a parameter the watchlist QuerySet. On every action loop we are going to check
+if the auction_id exists also in the watchlist QuerySet. We are achiving this
+with the custom tag we created ‘search’.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;!-- If there is a watchlist parameter ... --&gt;
+{% if watchlist %}
+    &lt;!-- If the auction id is also in the watchlist QuerySet ... --&gt;
+    {% if watchlist|search:auction.id%}
+        Unwatch
+    {% else %}
+        Watch
+    {% endif %}
+{% else %}
+    Watch
+{% endif %}
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-bid-template">
+<h3>The Bid Template<a class="headerlink" href="#the-bid-template" title="Permalink to this headline">¶</a></h3>
+<p>The bid.html contains the page that allows users to bid on auctions. It also
+has a static chat for the users to communicate with each other.</p>
+<p>The user will be able to add or remove the auction to the watchlist.</p>
+<p>In this template we have four parameters from the view model the auction and
+user information one special list that contains data we created inside
+the bid_page view and the user’s watchlist.</p>
+<p>The static chat is a form that makes a POST request. We will talk on how to
+handle forms in the next section.</p>
+</div>
+<div class="section" id="the-resister-template">
+<h3>The Resister Template<a class="headerlink" href="#the-resister-template" title="Permalink to this headline">¶</a></h3>
+<p>The register template contains a form that makes a POST request. We will talk on how to
+handle forms in the next section.</p>
+</div>
 </div>
 </div>
 
@@ -347,7 +436,7 @@ the our app and inside it we will create two files.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="0.cheatsheet.html" class="btn btn-neutral float-right" title="Sphinx cheatsheet" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="7.forms.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="5.view-layer.html" class="btn btn-neutral" title="The View Layer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

@@ -66,6 +66,8 @@ Tags are surrounded by **{%** and **%}** like this:
 
 **{% url 'website:index' %}** : page redirect (views name)
 
+**{% now "Y-m-d-H-i-s" as todays_date %}** : declares a new variable that holds the current date/time.
+
 Static files
 ------------
 
@@ -133,21 +135,6 @@ The custom_tags.py will look like this: ::
     
     @register.filter(name='search')
     def search(value, id):
-        """
-        Linear search of a list
-    
-        Parameters
-        ----------
-        value : list
-            A list with key values
-        id : int
-            The key we are searching
-        
-        Returns
-        ------
-        boolean
-            True if the key is found, False otherwise.
-        """
         for v in value:
             if v.id == id:
                 return True
@@ -172,8 +159,107 @@ The custom_tags.py will look like this: ::
 
 We just created three new filters
 
-* search : searches a list for a key
+* search : searches a list for a key ::
+ 
+    {% if watchlist|search:auction.id%} watchlist contains auction_id {% endif %}
 
-* time_left : string representation of the auction's time left
+* time_left : string representation of the auction's time left ::
+    
+    {{ auction.time_ending|time_left }}
 
-* current_price : the current price of the auction item based on the number of bids
+* current_price : the current price of the auction item based on the number of bids ::
+    
+    €{{ auction|current_price }}
+
+Creating the project's templates
+--------------------------------
+
+The Index Template
+==================
+
+For our project, the primary template is "index.html", which contains all the 
+necessary code for our site's appearance. The index page contains a navbar with its components,
+a dummy ad, a footer, a login modal and finally the "replacement-container" which 
+is altered depending the content we want to show.
+
+The replacement-container : ::
+    
+    <div class="p-2">
+        <div id="replacement">
+            {% block body %}
+            {% include "products.html" %}
+            {% endblock %}
+        </div>
+    </div>
+
+Whenever we are requesting the index page by default the replacement container
+loads the contents of the products.html
+
+If the user is currently logged in ::
+
+    <!-- If the user is logged in then include the home.html contents in the navbar -->
+    {% if request.session.username %}
+        {% include "home.html" %}
+    <!-- else add login and register links -->
+    {% else %}
+        <li class="nav-item open-modal">
+            <a id="login" href="#myModal" class="nav-link trigger-btn" data-toggle="modal">Login</a>
+        </li>
+        <li class="nav-item">
+            <a id="signup" class="nav-link" href="/website/register/">Sign up</a>
+        </li>
+    {% endif %}
+
+After the footer we have a modal with a login form. We will talk on how to
+handle forms in the next section.
+
+The Product Template
+====================
+
+The products template contains the auctions that are still in process and all
+the other auctions that will start in the future.
+
+In this template we are going to need the custom tags we made ::
+
+ {% load custom_tags %}
+ 
+So the product template will display all the auctions by running a loop on
+the auction QuerySet. Each auction will be displayed as a card and depending
+the starting_time and ending time the auction will be active (we will be able to bid)
+or inactive (just showing the starting_time). Also one more QuerySet is given as
+a parameter the watchlist QuerySet. On every action loop we are going to check
+if the auction_id exists also in the watchlist QuerySet. We are achiving this
+with the custom tag we created 'search'. ::
+
+    <!-- If there is a watchlist parameter ... -->
+    {% if watchlist %}
+        <!-- If the auction id is also in the watchlist QuerySet ... -->
+        {% if watchlist|search:auction.id%} 
+            Unwatch
+        {% else %}
+            Watch
+        {% endif %}
+    {% else %}
+        Watch
+    {% endif %}
+
+The Bid Template
+================
+
+The bid.html contains the page that allows users to bid on auctions. It also
+has a static chat for the users to communicate with each other. 
+
+The user will be able to add or remove the auction to the watchlist. 
+
+In this template we have four parameters from the view model the auction and 
+user information one special list that contains data we created inside 
+the bid_page view and the user's watchlist.
+
+The static chat is a form that makes a POST request. We will talk on how to
+handle forms in the next section.
+
+The Resister Template
+===============================
+
+The register template contains a form that makes a POST request. We will talk on how to
+handle forms in the next section.

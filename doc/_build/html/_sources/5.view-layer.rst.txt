@@ -60,3 +60,5 @@ Required arguments:
 
 *template_name - The full name of a template to use or sequence of template names. If a sequence is given, the first template that exists will be used. See the template loading documentation for more information on how templates are found.
 
+Creating the project's views
+----------------------------

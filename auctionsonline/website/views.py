@@ -241,7 +241,7 @@ def watchlist_page(request):
             
             auctions = Auction.objects.none()
             for item in w:
-                a = Auction.objects.filter(id=item.auction_id.id)
+                a = Auction.objects.filter(id=item.auction_id.id, time_ending__gte=timezone.now())
                 auctions = list(chain(auctions, a))
             return render(request, 'index.html', {
                 'auctions': auctions, 
@@ -311,35 +311,45 @@ def filter_auctions(request, category):
     Function : index(request)
          If the user is not logged in.
     """
+    f_auctions = []
     if category == "laptops":
-        lap_auctions = Auction.objects.filter(
+        f_auctions = Auction.objects.filter(
             time_ending__gte=datetime.now(), product_id__category="LAP"
             ).order_by('time_starting')
         
-        return render(request, 'index.html', {'auctions': lap_auctions})
     elif category == "consoles":
-        con_auctions = Auction.objects.filter(
+        f_auctions = Auction.objects.filter(
             time_ending__gte=datetime.now(), product_id__category="CON"
             ).order_by('time_starting')
         
-        return render(request, 'index.html', {'auctions': con_auctions})
     elif category == "games":
-        gam_auctions = Auction.objects.filter(
+        f_auctions = Auction.objects.filter(
             time_ending__gte=datetime.now(), product_id__category="GAM"
             ).order_by('time_starting')
         
-        return render(request, 'index.html', {'auctions': gam_auctions})
     elif category == "gadgets":
-        gad_auctions = Auction.objects.filter(
+        f_auctions = Auction.objects.filter(
             time_ending__gte=datetime.now(), product_id__category="GAD"
             ).order_by('time_starting')
         
-        return render(request, 'index.html', {'auctions': gad_auctions})
     elif category == "tvs":
-        tel_auctions = Auction.objects.filter(
+        f_auctions = Auction.objects.filter(
             time_ending__gte=datetime.now(), product_id__category="TEL"
             ).order_by('time_starting')
         
+    try:
+        if request.session['username']:
+            auctions = Auction.objects.filter(time_ending__gte=datetime.now()).order_by('time_starting')
+            user = User.objects.filter(username=request.session['username'])
+            
+            w = Watchlist.objects.filter(user_id=user[0])
+            watchlist = Auction.objects.none()
+            for item in w:
+                a = Auction.objects.filter(id=item.auction_id.id)
+                watchlist = list(chain(watchlist, a))
+            print(1)
+            return render(request, 'index.html', {'auctions': f_auctions, 'user': user[0], 'watchlist': watchlist})
+    except:
         return render(request, 'index.html', {'auctions': tel_auctions})
     
     return index(request)

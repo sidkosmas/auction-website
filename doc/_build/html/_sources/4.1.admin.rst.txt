@@ -50,7 +50,7 @@ They are provided by django.contrib.auth, the authentication framework shipped b
 We will not use those in this tutorial.
 
 Make the website app modifiable in the admin
------------------------------------------
+--------------------------------------------
 
 To do this, open the website/admin.py file, and edit it to look like this: ::
 

@@ -31,9 +31,9 @@ Variables
 
 A variable outputs a value from the context, which is a dict-like object mapping keys to values.
 
-Variables are surrounded by **{{** and **}}** like this:
+Variables are surrounded by ``{{`` and ``}}`` like this:
 
-My name is **{{ user.name }}**
+My name is ``{{ user.name }}``
 
 Tags
 ----
@@ -42,31 +42,41 @@ Tags provide arbitrary logic in the rendering process.
 
 This definition is deliberately vague. For example, a tag can output content, serve as a control structure e.g. an “if” statement or a “for” loop, grab content from a database, or even enable access to other template tags.
 
-Tags are surrounded by **{%** and **%}** like this:
+Tags are surrounded by ``{%`` and ``%}`` like this:
 
-**{% extends "base_template.html" %}** : indicates that the specific template/part of code extends another template/part of code.
+``{% extends "base_template.html" %}`` : indicates that the specific template/part of code extends another template/part of code.
 
-**{% include "some_template.html" %}** : indicates that in the specific part of the code, another template/code will be included.
+``{% include "some_template.html" %}`` : indicates that in the specific part of the code, another template/code will be included.
 
-**{% block label %}**
-    ...code or **{% include ...%}**...
-**{% endblock %}** : we use this format to enclose parts of the code we want to be replaced or included, when a specific request/event is triggered.
+``{% block label %}`` block ``{% endblock %}`` : we use this format to enclose parts of the code we want to be replaced or included, when a specific request/event is triggered.
 
-**{% if 'statement' %}**
+**if/else if/else statements**
+
+``{% if 'statement' %}``
+
     ...code...
-**{% elif %}**
-    ...code...
-**{% else %}** 
-    ...code...
-**{% endif %}** : if/else if/else statement
 
-**{% for ... %}**
+``{% elif %}``
+
     ...code...
-**{% endfor %}** : for loop
 
-**{% url 'website:index' %}** : page redirect (views name)
+``{% else %}`` 
 
-**{% now "Y-m-d-H-i-s" as todays_date %}** : declares a new variable that holds the current date/time.
+    ...code...
+
+``{% endif %}``
+
+**For loops**
+
+``{% for ... %}``
+
+    ...code...
+
+``{% endfor %}``
+
+``{% url 'website:index' %}`` : page redirect (views name)
+
+``{% now "Y-m-d-H-i-s" as todays_date %}`` : declares a new variable that holds the current date/time.
 
 Static files
 ------------

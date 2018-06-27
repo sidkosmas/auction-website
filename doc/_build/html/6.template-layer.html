@@ -117,6 +117,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="7.forms.html">Forms</a></li>
 </ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="8.testing.html">Testing our Website</a></li>
+</ul>
 
             
           
@@ -208,37 +211,35 @@ action or url, we can use specific django formats :</p>
 <div class="section" id="variables">
 <h2>Variables<a class="headerlink" href="#variables" title="Permalink to this headline">¶</a></h2>
 <p>A variable outputs a value from the context, which is a dict-like object mapping keys to values.</p>
-<p>Variables are surrounded by <strong>{{</strong> and <strong>}}</strong> like this:</p>
-<p>My name is <strong>{{ user.name }}</strong></p>
+<p>Variables are surrounded by <code class="docutils literal notranslate"><span class="pre">{{</span></code> and <code class="docutils literal notranslate"><span class="pre">}}</span></code> like this:</p>
+<p>My name is <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">user.name</span> <span class="pre">}}</span></code></p>
 </div>
 <div class="section" id="tags">
 <h2>Tags<a class="headerlink" href="#tags" title="Permalink to this headline">¶</a></h2>
 <p>Tags provide arbitrary logic in the rendering process.</p>
 <p>This definition is deliberately vague. For example, a tag can output content, serve as a control structure e.g. an “if” statement or a “for” loop, grab content from a database, or even enable access to other template tags.</p>
-<p>Tags are surrounded by <strong>{%</strong> and <strong>%}</strong> like this:</p>
-<p><strong>{% extends “base_template.html” %}</strong> : indicates that the specific template/part of code extends another template/part of code.</p>
-<p><strong>{% include “some_template.html” %}</strong> : indicates that in the specific part of the code, another template/code will be included.</p>
-<dl class="docutils">
-<dt><strong>{% block label %}</strong></dt>
-<dd>…code or <strong>{% include …%}</strong>…</dd>
-</dl>
-<p><strong>{% endblock %}</strong> : we use this format to enclose parts of the code we want to be replaced or included, when a specific request/event is triggered.</p>
-<dl class="docutils">
-<dt><strong>{% if ‘statement’ %}</strong></dt>
-<dd>…code…</dd>
-<dt><strong>{% elif %}</strong></dt>
-<dd>…code…</dd>
-<dt><strong>{% else %}</strong></dt>
-<dd>…code…</dd>
-</dl>
-<p><strong>{% endif %}</strong> : if/else if/else statement</p>
-<dl class="docutils">
-<dt><strong>{% for … %}</strong></dt>
-<dd>…code…</dd>
-</dl>
-<p><strong>{% endfor %}</strong> : for loop</p>
-<p><strong>{% url ‘website:index’ %}</strong> : page redirect (views name)</p>
-<p><strong>{% now “Y-m-d-H-i-s” as todays_date %}</strong> : declares a new variable that holds the current date/time.</p>
+<p>Tags are surrounded by <code class="docutils literal notranslate"><span class="pre">{%</span></code> and <code class="docutils literal notranslate"><span class="pre">%}</span></code> like this:</p>
+<p><code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">extends</span> <span class="pre">&quot;base_template.html&quot;</span> <span class="pre">%}</span></code> : indicates that the specific template/part of code extends another template/part of code.</p>
+<p><code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">include</span> <span class="pre">&quot;some_template.html&quot;</span> <span class="pre">%}</span></code> : indicates that in the specific part of the code, another template/code will be included.</p>
+<p><code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">block</span> <span class="pre">label</span> <span class="pre">%}</span></code> block <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">endblock</span> <span class="pre">%}</span></code> : we use this format to enclose parts of the code we want to be replaced or included, when a specific request/event is triggered.</p>
+<p><strong>if/else if/else statements</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">if</span> <span class="pre">'statement'</span> <span class="pre">%}</span></code></p>
+<blockquote>
+<div>…code…</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">elif</span> <span class="pre">%}</span></code></p>
+<blockquote>
+<div>…code…</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">else</span> <span class="pre">%}</span></code></p>
+<blockquote>
+<div>…code…</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">endif</span> <span class="pre">%}</span></code></p>
+<p><strong>For loops</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">for</span> <span class="pre">...</span> <span class="pre">%}</span></code></p>
+<blockquote>
+<div>…code…</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">endfor</span> <span class="pre">%}</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">url</span> <span class="pre">'website:index'</span> <span class="pre">%}</span></code> : page redirect (views name)</p>
+<p><code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">now</span> <span class="pre">&quot;Y-m-d-H-i-s&quot;</span> <span class="pre">as</span> <span class="pre">todays_date</span> <span class="pre">%}</span></code> : declares a new variable that holds the current date/time.</p>
 </div>
 <div class="section" id="static-files">
 <h2>Static files<a class="headerlink" href="#static-files" title="Permalink to this headline">¶</a></h2>

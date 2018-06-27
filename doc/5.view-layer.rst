@@ -31,14 +31,115 @@ so as to connect our path with the appropriate "response", which we will later c
     path('', views.index, name='index'),
  ]
 
+URLs
+----
+
+Here’s our URLconf: ::
+
+    from django.urls import path
+    from . import views
+    
+    urlpatterns = [
+        path('', views.index, name='index'),
+        path('login/', views.login_page, name='login_view'),
+        path('logout/', views.logout_page, name='logout_view'),
+        path('register/', views.register_page, name='register_page'),
+        path('register/new_user/', views.register, name='register'),
+        path('category/<str:category>/', views.filter_auctions, name='filter_auctions'),
+        path('watchlist/<int:auction_id>/', views.watchlist, name='watchlist'),
+        path('balance/', views.balance, name='balance'),
+        path('balance/topup/', views.topup, name='topup'),
+        path('watchlist/', views.watchlist_page, name='watchlist'),
+        path('bid/<int:auction_id>/', views.bid_page, name='bid_page'),
+        path('bid/<int:auction_id>/comment/', views.comment, name='comment'),
+        path('bid/<int:auction_id>/raise_bid/', views.raise_bid, name='raise_bid'),
+    ]
+
+Notes:
+
+To capture a value from the URL, use angle brackets.
+Captured values can optionally include a converter type. 
+For example, use <int:auction_id> to capture an integer parameter. 
+If a converter isn’t included, any string, excluding a / character, is matched.
+There’s no need to add a leading slash, because every URL has that. 
+For example, it’s balance, not /balance.
+
+Example requests: ::
+
+    A request to bid/34/comment/ would match the twelfth entry in the list. 
+    Django would call the function views.comment(request, auction_id)(request, auction_id).
+    
+    category/laptops would match the sixth pattern in the list. 
+    
+    bid/34/comment/ would match the second from last pattern in the list. The patterns are tested in order.
+    
+Path converters
+===============
+
+The following path converters are available by default:
+
+* ``str`` : Matches any non-empty string, excluding the path separator, '/'. This is the default if a converter isn’t included in the expression.
+* ``int`` : Matches zero or any positive integer. Returns an int.
+* ``slug`` : Matches any slug string consisting of ASCII letters or numbers, plus the hyphen and underscore characters. For example, building-your-1st-django-site.
+* ``uuid`` : Matches a formatted UUID. To prevent multiple URLs from mapping to the same page, dashes must be included and letters must be lowercase. For example, 075194d3-6885-417e-a8a8-6c931e272f00. Returns a UUID instance.
+* ``path`` : Matches any non-empty string, including the path separator, '/'. This allows you to match against a complete URL path rather than just a segment of a URL path as with str.
+
 After all our paths are created, we go to the "views.py" file in the same directory, so as to
 connect the user request with the appropriate html response. ::
 
- from django.shortcuts import render
-
+ ....
  # Create your views here.
  def index(request):
-    return render(request, 'index.html')
+    ....    
+    return render(request, 'index.html', {'auctions': auctions})
+
+ def bid_page(request, auction_id):
+    ....
+    return index(request)
+ 
+ def comment(request, auction_id):
+    ....
+    return index(request)
+ 
+ def raise_bid(request, auction_id):
+    ....
+    return bid_page(request, auction_id)
+    
+ def register_page(request):
+    ....
+    return render(request, 'register.html')
+
+ def watchlist(request, auction_id):
+    ....
+    return index(request)
+ 
+ def watchlist_page(request):
+    ....
+    return index(request)
+ 
+ def balance(request):
+    ....
+    return index(request)
+ 
+ def topup(request):
+    ....
+    return index(request)
+ 
+ def filter_auctions(request, category):
+    ....
+    return index(request)
+ 
+ def register(request):
+    ....
+    return index(request)
+    
+ def login_page(request):
+    ....
+    return index(request)
+    
+ def logout_page(request):
+    ....
+    return index(request)
 
 So now if we type to our browser "127.0.0.1:8000/website/" we request 
 from the server the index.html file. Depending the url the equivalent
@@ -56,6 +157,10 @@ of TemplateResponse offers the same level of convenience as render().
 
 Required arguments:
 
-*request - The request object used to generate this response.
+* ``request`` : The request object used to generate this response.
 
-*template_name - The full name of a template to use or sequence of template names. If a sequence is given, the first template that exists will be used. See the template loading documentation for more information on how templates are found.
+* ``template_name`` : The full name of a template to use or sequence of template names. If a sequence is given, the first template that exists will be used. See the template loading documentation for more information on how templates are found.
+
+Optional arguments:
+
+* ``context`` : We can give dictionary mapping variable names to variable values.

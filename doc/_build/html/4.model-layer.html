@@ -112,6 +112,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="7.forms.html">Forms</a></li>
 </ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="8.testing.html">Testing our Website</a></li>
+</ul>
 
             
           
@@ -410,30 +413,27 @@ takes migration names and returns their SQL:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">python</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">migrate</span>
 </pre></div>
 </div>
-<dl class="docutils">
-<dt>we should see the following: ::</dt>
-<dd><dl class="first last docutils">
-<dt>Operations to perform:</dt>
-<dd>Apply all migrations: admin, auth, contenttypes, sessions, website</dd>
-<dt>Running migrations:</dt>
-<dd>Applying contenttypes.0001_initial… OK
-Applying auth.0001_initial… OK
-Applying admin.0001_initial… OK
-Applying admin.0002_logentry_remove_auto_add… OK
-Applying contenttypes.0002_remove_content_type_name… OK
-Applying auth.0002_alter_permission_name_max_length… OK
-Applying auth.0003_alter_user_email_max_length… OK
-Applying auth.0004_alter_user_username_opts… OK
-Applying auth.0005_alter_user_last_login_null… OK
-Applying auth.0006_require_contenttypes_0002… OK
-Applying auth.0007_alter_validators_add_error_messages… OK
-Applying auth.0008_alter_user_username_max_length… OK
-Applying auth.0009_alter_user_last_name_max_length… OK
-Applying sessions.0001_initial… OK
-Applying website.0001_initial… OK</dd>
-</dl>
-</dd>
-</dl>
+<p>we should see the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Operations</span> <span class="n">to</span> <span class="n">perform</span><span class="p">:</span>
+       <span class="n">Apply</span> <span class="nb">all</span> <span class="n">migrations</span><span class="p">:</span> <span class="n">admin</span><span class="p">,</span> <span class="n">auth</span><span class="p">,</span> <span class="n">contenttypes</span><span class="p">,</span> <span class="n">sessions</span><span class="p">,</span> <span class="n">website</span>
+<span class="n">Running</span> <span class="n">migrations</span><span class="p">:</span>
+       <span class="n">Applying</span> <span class="n">contenttypes</span><span class="o">.</span><span class="mi">0001</span><span class="n">_initial</span><span class="o">...</span> <span class="n">OK</span>
+       <span class="n">Applying</span> <span class="n">auth</span><span class="o">.</span><span class="mi">0001</span><span class="n">_initial</span><span class="o">...</span> <span class="n">OK</span>
+       <span class="n">Applying</span> <span class="n">admin</span><span class="o">.</span><span class="mi">0001</span><span class="n">_initial</span><span class="o">...</span> <span class="n">OK</span>
+       <span class="n">Applying</span> <span class="n">admin</span><span class="o">.</span><span class="mi">0002</span><span class="n">_logentry_remove_auto_add</span><span class="o">...</span> <span class="n">OK</span>
+       <span class="n">Applying</span> <span class="n">contenttypes</span><span class="o">.</span><span class="mi">0002</span><span class="n">_remove_content_type_name</span><span class="o">...</span> <span class="n">OK</span>
+       <span class="n">Applying</span> <span class="n">auth</span><span class="o">.</span><span class="mi">0002</span><span class="n">_alter_permission_name_max_length</span><span class="o">...</span> <span class="n">OK</span>
+       <span class="n">Applying</span> <span class="n">auth</span><span class="o">.</span><span class="mi">0003</span><span class="n">_alter_user_email_max_length</span><span class="o">...</span> <span class="n">OK</span>
+       <span class="n">Applying</span> <span class="n">auth</span><span class="o">.</span><span class="mi">0004</span><span class="n">_alter_user_username_opts</span><span class="o">...</span> <span class="n">OK</span>
+       <span class="n">Applying</span> <span class="n">auth</span><span class="o">.</span><span class="mi">0005</span><span class="n">_alter_user_last_login_null</span><span class="o">...</span> <span class="n">OK</span>
+       <span class="n">Applying</span> <span class="n">auth</span><span class="o">.</span><span class="mi">0006</span><span class="n">_require_contenttypes_0002</span><span class="o">...</span> <span class="n">OK</span>
+       <span class="n">Applying</span> <span class="n">auth</span><span class="o">.</span><span class="mi">0007</span><span class="n">_alter_validators_add_error_messages</span><span class="o">...</span> <span class="n">OK</span>
+       <span class="n">Applying</span> <span class="n">auth</span><span class="o">.</span><span class="mi">0008</span><span class="n">_alter_user_username_max_length</span><span class="o">...</span> <span class="n">OK</span>
+       <span class="n">Applying</span> <span class="n">auth</span><span class="o">.</span><span class="mi">0009</span><span class="n">_alter_user_last_name_max_length</span><span class="o">...</span> <span class="n">OK</span>
+       <span class="n">Applying</span> <span class="n">sessions</span><span class="o">.</span><span class="mi">0001</span><span class="n">_initial</span><span class="o">...</span> <span class="n">OK</span>
+       <span class="n">Applying</span> <span class="n">website</span><span class="o">.</span><span class="mi">0001</span><span class="n">_initial</span><span class="o">...</span> <span class="n">OK</span>
+</pre></div>
+</div>
 <p>The migrate command takes all the migrations that haven’t been applied
 (Django tracks which ones are applied using a special table in your database
 called django_migrations) and runs them against your database - essentially,
@@ -499,11 +499,11 @@ the database showing the username and the email of each user.</p>
 Usually, though, you’ll need to select only a subset of the complete set of objects.
 To create such a subset, you refine the initial QuerySet, adding filter conditions.</p>
 <p>One way to do this is with the:</p>
-<ul class="simple">
-<li><dl class="first docutils">
-<dt>filter(<a href="#id1"><span class="problematic" id="id2">**</span></a>kwargs)</dt>
-<dd>Returns a new QuerySet containing objects that match the given lookup parameters.</dd>
-</dl>
+<ul>
+<li><p class="first"><strong>filter(**kwargs)</strong></p>
+<blockquote>
+<div><p>Returns a new QuerySet containing objects that match the given lookup parameters.</p>
+</div></blockquote>
 </li>
 </ul>
 <p>for example if we want to find the user with <a class="reference external" href="mailto:'dummy1&#37;&#52;&#48;mail&#46;com">‘dummy1<span>&#64;</span>mail<span>&#46;</span>com</a>’ we will use:</p>

@@ -1,0 +1,10 @@
+Testing our Website
++++++++++++++++++++
+
+We've created for you a file called 'populate.py' which is
+located inside the website app.
+
+``populate.py``: Removes everything from the database and generates User, Product
+and Auction records in the database.
+
+The first auction from the generated records starts in 1 minute.

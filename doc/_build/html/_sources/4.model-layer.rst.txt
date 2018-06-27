@@ -13,7 +13,8 @@ Field types
  
  **Field.choices** : An iterable (e.g., a list or tuple) consisting itself of iterables of exactly two items (e.g. [(A, B), (A, B) ...]) to use as choices for this field.
  
- The first element in each tuple is the actual value to be set on the model, and the second element is the human-readable name. For example: ::
+The first element in each tuple is the actual value to be set on the model, and the second element is the human-readable name. For example: ::
+
   CATEGORIES = (
     ('LAP', 'Laptop'),
     ('CON', 'Console'),
@@ -352,3 +353,4 @@ Some usefull field lookups are:
 * ``gte`` : Greater than or equal to.
 
 * ``lte`` : Less than or equal to.
+

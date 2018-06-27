@@ -54,8 +54,3 @@ Indices and tables
     :maxdepth: 2
     
     7.forms
-	
-.. toctree::
-	:maxdepth: 2
-	
-	0.cheatsheet

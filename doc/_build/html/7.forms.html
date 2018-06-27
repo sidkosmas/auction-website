@@ -29,7 +29,6 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Sphinx cheatsheet" href="0.cheatsheet.html" />
     <link rel="prev" title="The Template Layer" href="6.template-layer.html" /> 
 
   
@@ -101,10 +100,17 @@
 <li class="toctree-l1"><a class="reference internal" href="6.template-layer.html">The Template Layer</a></li>
 </ul>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Forms</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Forms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#project-s-forms">Project’s Forms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-register-form">The Register form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-login-form">The Login Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#general-rule">General Rule</a></li>
 </ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="0.cheatsheet.html">Sphinx cheatsheet</a></li>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#the-csrf-token">The CSRF Token</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#handling-forms">Handling Forms</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -171,6 +177,109 @@
             
   <div class="section" id="forms">
 <h1>Forms<a class="headerlink" href="#forms" title="Permalink to this headline">¶</a></h1>
+<p>Django provides a rich framework to facilitate the creation of forms and the
+manipulation of form-data. In our main directory (website) we create a python
+file, named “forms.py” were we place the code for the forms we require.</p>
+<div class="section" id="project-s-forms">
+<h2>Project’s Forms<a class="headerlink" href="#project-s-forms" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The Form’s variables we are going to declare must have the same name with the &lt;input … name=”username” … /&gt;</p>
+</div>
+<div class="section" id="the-register-form">
+<h3>The Register form<a class="headerlink" href="#the-register-form" title="Permalink to this headline">¶</a></h3>
+<p>To access the services of our website, the user must register by completing
+the form presented when clicking the “sign up” button in the nav-bar.
+When pressed, the form fields will replace the products shown in the index page.
+To create the form, we access the “forms.py” file and write down the required
+code and the fields we want the user to fill in :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django</span> <span class="k">import</span> <span class="n">forms</span>
+
+<span class="k">class</span> <span class="nc">RegistrationForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+    <span class="n">username</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+    <span class="n">email</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">EmailField</span><span class="p">()</span>
+    <span class="n">password1</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+    <span class="n">password2</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+    <span class="o">.....</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-login-form">
+<h3>The Login Form<a class="headerlink" href="#the-login-form" title="Permalink to this headline">¶</a></h3>
+<p>In order to login in our website, one must complete the required credentials of
+the login form, which are contained in the “login modal” that is activated when
+the user presses the “sign in” button in the navbar. To create the form, we access
+the “forms.py” file and write down the required code and the fields we want the
+user to fill in :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">....</span>
+<span class="k">class</span> <span class="nc">LoginForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+    <span class="n">username</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+    <span class="o">....</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="general-rule">
+<h3>General Rule<a class="headerlink" href="#general-rule" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">Create the form class with the form fields you require</p>
+</li>
+<li><p class="first">In the template file don’t forget to give the same name to the form elements</p>
+</li>
+<li><p class="first">In the views.py when you want to handle forms use the following code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+    <span class="n">form</span> <span class="o">=</span> <span class="n">RegistrationForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">And finally to get a field value use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="the-csrf-token">
+<h2>The CSRF Token<a class="headerlink" href="#the-csrf-token" title="Permalink to this headline">¶</a></h2>
+<p>“The CSRF middleware and template tag provides easy-to-use protection against
+Cross Site Request Forgeries. This type of attack occurs when a malicious
+website contains a link, a form button or some JavaScript that is intended to
+perform some action on your website, using the credentials of a logged-in user
+who visits the malicious site in their browser. A related type of attack,
+‘login CSRF’, where an attacking site tricks a user’s browser into logging into
+a site with someone else’s credentials, is also covered. The first defense
+against CSRF attacks is to ensure that GET requests are side effect free.
+In any template that uses a POST form, use the csrf_token tag inside the &lt;form&gt;
+element if the form is for an internal URL, e.g.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">....</span>
+<span class="o">&lt;</span><span class="n">form</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;post&quot;</span> <span class="o">...&gt;</span>
+    <span class="p">{</span><span class="o">%</span> <span class="n">csrf_token</span> <span class="o">%</span><span class="p">}</span>
+    <span class="o">.....</span>
+<span class="o">&lt;/</span><span class="n">form</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>This should not be done for POST forms that target external URLs, since that
+would cause the CSRF token to be leaked, leading to a vulnerability.</p>
+</div>
+<div class="section" id="handling-forms">
+<h2>Handling Forms<a class="headerlink" href="#handling-forms" title="Permalink to this headline">¶</a></h2>
+<p>When the user makes a POST request a view function is called and by typing
+the following code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+    <span class="n">form</span> <span class="o">=</span> <span class="n">RegistrationForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+</pre></div>
+</div>
+<p>we can process the given data anyway we want. Most of the time is to make a query
+on our database.</p>
+<p>To get each POST parameter we must use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="n">form_field_name</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>This data has not only been validated but will also be converted in to the relevant Python types for you.</p>
+</div>
 </div>
 
 
@@ -180,8 +289,6 @@
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="0.cheatsheet.html" class="btn btn-neutral float-right" title="Sphinx cheatsheet" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="6.template-layer.html" class="btn btn-neutral" title="The Template Layer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

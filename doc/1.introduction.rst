@@ -1,10 +1,8 @@
-.. |br| raw:: html
-
 Introduction
-+++++++++++++++++
+++++++++++++
 
 The Project - Auction Website
--------------------------
+-----------------------------
 
 In this django tutorial we are going to create a 
 website that makes auctions. The admin user will be able to
@@ -13,20 +11,14 @@ the other hand the users will be able to bid on items and chat
 with each other. Also the user can wishlist an auction.
 
 Auction and Bidding System
-============================
+==========================
 The users will have to buy credits so they can bid.
 Each credit is a bid. The auction ends after 5 minutes from
 the last bid.
 
 .. note:: This is a tutorial to create a website not a way to make money.
 
-10€ equals 10 bids/credits of 20 cents
- 
-20€ equals 25 bids/credits of 20 cents 
-
-50€ equals 100 bids/credits of 20 cents
-
-Let's make an example.
+Let's make an example. ::
 
 	The admin creates an auction of a smartphone that has 200€ value.
 	The auction starts at 0.20€ and ends in 5 minutes. 
@@ -41,3 +33,5 @@ Let's make an example.
 	40 users brought credits 10€ each and the winner spent 40.20€
 	So the website made profit 40.20€ + (40 * 10€) - 200€ = 240.20€
 	Everyone is happy.
+
+	

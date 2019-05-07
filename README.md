@@ -16,3 +16,9 @@ Sources<br>
 * https://www.b-list.org/weblog/2006/sep/10/django-tips-laying-out-application/
 * https://www.tutorialspoint.com/django/
 * https://djangobook.com/
+
+Required modules:
+
+pip install Django
+pip install Pillow
+pip install docutils

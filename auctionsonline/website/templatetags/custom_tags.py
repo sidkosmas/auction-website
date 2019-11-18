@@ -1,5 +1,4 @@
 from django import template
-from ..models import User
 from django.utils import timezone
 
 register = template.Library()

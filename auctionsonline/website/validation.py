@@ -1,28 +1,24 @@
-from website.models import User
+from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
 
 def validate_login(username, password):
-    user = User.objects.filter(username=username)
-    if not user:
+    user = authenticate(username=username, password=password)
+    if user is not None:
+        return True
+    else:
         return False
-    passw = User.objects.filter(username=user[0].username, password=password)
-    if passw:
-        if passw[0].password == password :
-            return True
-    return False
 
 def validate_registration(username, password1, password2, email):
     user = User.objects.filter(username=username)
-    
+
     if user:
-        print("user already exists")
+        print('User already exists')
         return False
-    if password1 != password2 :
-        print("password confirm not compatible")
+    if password1 != password2:
         return False
-    
     email = User.objects.filter(email=email)
     if email:
-        print("email already exists")
+        print('Email already exists')
         return False
-    
+
     return True
